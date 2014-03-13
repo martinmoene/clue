@@ -1,0 +1,38 @@
+// example1.cpp
+
+// -DLOG_TO_CONSOLE
+// -DLOG_TO_DEBUGGER
+// -DLOG_TO_SYSLOG
+// -DLOG_LEVEL=LOG_SEV_NOTICE
+
+#define LOG_MODULE_PREFIX "Module"
+
+#include "clue.hpp"
+
+int main()
+{
+    // -DLOG_TO_SYSLOG requires use of clue_ prefix
+
+    clue_LOG_LOGGED_LEVELS();
+
+    clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, "The log levels currently turned on are..." );
+    clue_LOG_EMERGENCY ( "design by contract violation: "           << "irrecoverable, terminating..." );
+    clue_LOG_ALERT     ( "practically-unrecoverable condition: "    << "need more memory; trying hard, likely failing..." );
+    clue_LOG_CRITICAL  ( "normative behaviour cannot be achieved: " << "severe error" );
+    clue_LOG_ERROR     ( "normative behaviour cannot be achieved: " << "error" );
+    clue_LOG_WARNING   ( "you should be aware of: "                 << "e.g. disk 90% full, please free some" );
+    clue_LOG_NOTICE    ( "operating normal: "                       << "database connection achieved" );
+    clue_LOG_INFO      ( "monitoring health of the system: "        << "tracking more actions, not significantly degrading performance" );
+    clue_LOG_DEBUG     ( "tracking detailed information: "          << "speed:3.14 m/s" );
+
+    clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, "see Pantheios: The C++ Logging Library SweetSpot, http://www.pantheios.org/" );
+}
+
+// g++ -Wall -Wextra -Weffc++ -o example1.exe example1.cpp && example1
+
+// cl -nologo -EHsc example1.cpp && example1
+// cl -nologo -EHsc -D_WINDOWS example1.cpp && example1
+
+// cl -nologo -EHsc -DLOG_LEVEL=3 example1.cpp && example1
+// cl -nologo -EHsc -DLOG_LEVEL=LOG_LEVEL_NOTICE example1.cpp && example1
+// cl -nologo -EHsc -DLOG_LEVEL=LOG_LEVEL_NOTICE -DLOG_TO_DEBUGGER example1.cpp && example1
