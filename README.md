@@ -46,8 +46,7 @@ cl -nologo -EHsc example1.cpp && example1
 2014-03-14T23:01:33     Error: normative behaviour cannot be achieved: error
 2014-03-14T23:01:33   Warning: you should be aware of: e.g. disk 90% full, please free some
 2014-03-14T23:01:33    Notice: operating normal: database connection achieved
-2014-03-14T23:01:33      Info: monitoring health of the system: tracking more actions, not significantly degrading perfo
-rmance
+2014-03-14T23:01:33      Info: monitoring health of the system: tracking more actions, not significantly degrading performance
 2014-03-14T23:01:33     Debug: tracking detailed information: speed: 3.14 m/s
 ```
 
