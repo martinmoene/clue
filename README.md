@@ -153,19 +153,19 @@ namespace **clue** { }
 Types and functions are located in namespace clue.
 
 ### Utility functions
-`clue` uses several functions that you may also be useful to you.
+`clue` uses several functions that may also be useful to you.
 #### General
 std::string **text_or(** std::string const & *text*, std::string const & *or* **)**;  
-Returns *text* if non-empty, otherwise returns *or*.
+Return *text* if non-empty, otherwise returns *or*.
 
 std::string **text_with_or(** std::string const & *prefix*, std::string const & *text*, std::string const & *postfix*, std::string const & *or* **)**;  
-Returns *text* enclosed in *prefix* and *postfix* if *text* is non-empty, otherwise returns *or*.
+Return *text* enclosed in *prefix* and *postfix* if *text* is non-empty, otherwise returns *or*.
 
 std::string **now_text()**;  
-Returns date and time as "*yyyy-mm-dd*T*hh:mm:ss*" [4], or empty string if `clue_NO_TIME` is defined. 
+Return date and time as "*yyyy-mm-dd*T*hh:mm:ss*" [4], or empty string if `clue_NO_TIME` is defined. 
 
 std::string **to_module_text(** std::string const & *module* **)**;  
-Returns ": _module_" or empty string if module itself is empty.
+Return ": _module_" or empty string if module itself is empty.
 
 std::string **to_severity_text(** int const *severity* **)**;    
 Return a string such as "Emergency", "Notice", etc. for the given severity.
