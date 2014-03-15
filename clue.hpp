@@ -251,14 +251,14 @@ T & to_ref( T const& x )
     return const_cast<T&>(x);
 }
 
-inline std::string text_or( std::string const & text, std::string const & dflt )
+inline std::string text_or( std::string const & text, std::string const & or_text )
 {
-    return text.length() ? text : dflt;
+    return text.length() ? text : or_text;
 }
 
-inline std::string text_with_or( std::string const & prefix, std::string const & text, std::string const & postfix, std::string const & dflt )
+inline std::string text_with_or( std::string const & prefix, std::string const & text, std::string const & postfix, std::string const & or_text )
 {
-    return text.length() ? prefix + text + postfix: dflt;
+    return text.length() ? prefix + text + postfix: or_text;
 }
 
 inline std::string to_module_text( std::string const & module )
@@ -388,9 +388,9 @@ windbg & operator<<( windbg & stream, T const & that )
 namespace clue
 {
 
-inline const char * text_or( char const * const text, char const * const dflt )
+inline const char * text_or( char const * const text, char const * const or_text )
 {
-    return strlen(text) ? text : dflt;
+    return strlen(text) ? text : or_text;
 }
 
 inline int to_eventlog_severity( int severity )
