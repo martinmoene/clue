@@ -59,7 +59,7 @@ Synopsis
 All macros of `clue` start with `clue_` to hopefully make them unique. Note however, that at default also macros without the leading `clue_` are available. Define `clue_NO_SHORT_NAMES` to omit the short variants.
 
 ### Logging macros
-`clue` defines the following logging macros.
+`clue` defines the following logging macros.  
 **LOG_EMERGENCY(** _expr_ **)**  
 **LOG_ALERT    (** _expr_ **)**  
 **LOG_CRITICAL (** _expr_ **)**  
@@ -71,7 +71,7 @@ All macros of `clue` start with `clue_` to hopefully make them unique. Note howe
 Use these like `LOG_NOTICE( "Gear switched to: " << gear );`
           
 ### Log severities
-`clue` defines the following severities.
+`clue` defines the following severities.  
 **LOG_SEV_NONE**   
 **LOG_SEV_EMERGENCY**  
 **LOG_SEV_ALERT**  
@@ -90,6 +90,7 @@ Define which logging statements will be included in the code via `LOG_LEVEL` bef
 ### Module name
 -D<b>LOG_MODULE_NAME</b>=*name*  
 Log messages may include a _module_ or _feature_ identifier right after the severity. You add such an identifer by defining `LOG_MODULE_NAME` before inclusion of `clue.hpp`. For example, a .cpp file may contain:
+
 	#define LOG_MODULE_NAME "Gearbox"
 	#include "clue.hpp"
 	
@@ -125,6 +126,7 @@ If none of these is defined and you didn't define your own backend (see below), 
 ### Define your own backend or logging destination
 **clue_LOG_EXPRESSION(** *severity*, *expr* **)**  
 `clue` allows to specify a backend to log to a destionation  of your choice. You do this by defining `clue_LOG_EXPRESSION` before inclusion of `clue.hpp`. For example:
+
 	#define clue_LOG_EXPRESSION( severity, expr ) \
 	    std::cout << clue::to_severity_text(severity) << ": " << expr
 	
