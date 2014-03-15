@@ -35,7 +35,6 @@ int main()
 // cl -nologo -EHsc -D_WINDOWS example1.cpp && example1
 // cl -nologo -EHsc -DLOG_TO_EVENTLOG example1.cpp Advapi32.lib && example1
 
-
 // cl -nologo -EHsc -DLOG_LEVEL=3 example1.cpp && example1
 // cl -nologo -EHsc -DLOG_LEVEL=LOG_LEVEL_NOTICE example1.cpp && example1
 // cl -nologo -EHsc -DLOG_LEVEL=LOG_LEVEL_NOTICE -DLOG_TO_DEBUGGER example1.cpp && example1

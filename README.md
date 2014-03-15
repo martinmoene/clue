@@ -39,7 +39,7 @@ The terminology in above messages is taken from the article by Matthew Wilson [C
 Compile and run
 ---------------
 ```
-cl -nologo -EHsc example1.cpp && example1
+prompt> g++ -Wall -o example1.exe example1.cpp && example1
 2014-03-14T23:01:33 Emergency: design by contract violation: irrecoverable, terminating...
 2014-03-14T23:01:33     Alert: practically-unrecoverable condition: need more memory; trying hard, likely failing...
 2014-03-14T23:01:33  Critical: normative behaviour cannot be achieved: severe error
@@ -101,7 +101,7 @@ Log messages may include a _module_ or _feature_ identifier right after the seve
 
 Compile and run:
 
-	prompt>g++ -Wall -o example3.exe example3.cpp && example3
+	prompt>g++ -Wall -o example2.exe example2.cpp && example2
 	2014-03-15T17:29:11    Notice: Gearbox: Gear switched to: 5
 
 ### Logging destination control
@@ -115,7 +115,7 @@ Log to `std::clog`.
 On Windows, log via `OutputDebugString()`. On Unix: TBD.
  
 -D<b>LOG_TO_EVENTLOG</b>  
-Windows only. Log via `ReportEvent()`. See source code for mapping in `to_eventlog_severity()` from clue (syslog) severity to event log severity. Note: you must link to `Advapi32.lib`.
+Windows only. Log via `ReportEvent()`. See source code in `to_eventlog_severity()` for mapping from clue (syslog) severity to event log severity. Note: you must link to `Advapi32.lib`.
 
 -D<b>LOG_TO_SYSLOG</b>    
 NTS:To be verified (Unix/Windows). 
@@ -138,7 +138,7 @@ If none of these is defined and you didn't define your own backend (see below), 
 
 Compile and run:
 
-	prompt> g++ -Wall -o example2.exe example2.cpp && example2
+	prompt> g++ -Wall -o example3.exe example3.cpp && example3
 	Notice: Hello world
 
 ### Other Macros

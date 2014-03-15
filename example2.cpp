@@ -1,13 +1,12 @@
 // example2.cpp
 
-#define clue_LOG_EXPRESSION( severity, expr ) \
-    std::cout << clue::to_severity_text(severity) << ": " << expr
-
+#define LOG_MODULE_NAME "Gearbox"
 #include "clue.hpp"
 
 int main()
 {
-    clue_LOG_NOTICE( "Hello" << " world" );
+    const int gear = 5;
+    LOG_NOTICE( "Gear switched to: " << gear );
 }
 
 // cl -nologo -EHsc example2.cpp && example2
