@@ -115,7 +115,7 @@ Log to `std::clog`.
 On Windows, log via `OutputDebugString()`. On Unix: TBD.
  
 -D<b>LOG_TO_EVENTLOG</b>  
-Windows only. Log via `ReportEvent()`. See source code for mapping in `to_eventlog_severity()` from clue (syslog) severity to event log severity.
+Windows only. Log via `ReportEvent()`. See source code for mapping in `to_eventlog_severity()` from clue (syslog) severity to event log severity. Note: you must link to `Advapi32.lib`.
 
 -D<b>LOG_TO_SYSLOG</b>    
 NTS:To be verified (Unix/Windows). 
