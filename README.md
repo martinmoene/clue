@@ -201,6 +201,6 @@ Notes and References
 
 [2] Matthew Wilson. Pantheios Tips 'n' Tricks. [Choosing severity levels](http://blog.pantheios.org/2010/10/choosing-severity-levels.html). 30 October 2010.
 
-[3] Matthew Wilson. [Quality Matters: The Worst Form of 'Error' Handling Except For All The Others](http://accu.org/index.php/journals/1681), section A new vocabulary. Overload, 18(98):28–32, August 2010.
+[3] Matthew Wilson. [Quality Matters: The Worst Form of 'Error' Handling Except For All The Others](http://accu.org/index.php/journals/1681), section *A new vocabulary*. Overload, 18(98):28-32, August 2010.
 
 [4] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
