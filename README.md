@@ -55,40 +55,40 @@ rmance
 Synopsis
 --------
 ### Unique macro names
--D**clue_NO_SHORT_NAMES**
+-D<b>clue_NO_SHORT_NAMES</b>  
 All macros of `clue` start with `clue_` to hopefully make them unique. Note however, that at default also macros without the leading `clue_` are available. Define `clue_NO_SHORT_NAMES` to omit the short variants.
 
 ### Logging macros
 `clue` defines the following logging macros.
-**LOG_EMERGENCY(** _expr_ **)**
-**LOG_ALERT    (** _expr_ **)**
-**LOG_CRITICAL (** _expr_ **)**
-**LOG_ERROR    (** _expr_ **)**
-**LOG_WARNING  (** _expr_ **)**
-**LOG_NOTICE   (** _expr_ **)**
-**LOG_INFO     (** _expr_ **)**
-**LOG_DEBUG    (** _expr_ **)**
+**LOG_EMERGENCY(** _expr_ **)**  
+**LOG_ALERT    (** _expr_ **)**  
+**LOG_CRITICAL (** _expr_ **)**  
+**LOG_ERROR    (** _expr_ **)**  
+**LOG_WARNING  (** _expr_ **)**  
+**LOG_NOTICE   (** _expr_ **)**  
+**LOG_INFO     (** _expr_ **)**  
+**LOG_DEBUG    (** _expr_ **)**  
 Use these like `LOG_NOTICE( "Gear switched to: " << gear );`
           
 ### Log severities
 `clue` defines the following severities.
-**LOG_SEV_NONE**      
-**LOG_SEV_EMERGENCY** 
-**LOG_SEV_ALERT**     
+**LOG_SEV_NONE**   
+**LOG_SEV_EMERGENCY**  
+**LOG_SEV_ALERT**  
 **LOG_SEV_CRITICAL**  
-**LOG_SEV_ERROR**   
+**LOG_SEV_ERROR**  
 **LOG_SEV_WARNING**  
-**LOG_SEV_NOTICE**    
-**LOG_SEV_INFO**     
-**LOG_SEV_DEBUG**     
-**LOG_SEV_MAX**       
+**LOG_SEV_NOTICE**  
+**LOG_SEV_INFO**  
+**LOG_SEV_DEBUG**  
+**LOG_SEV_MAX**  
 See also section _Logging level_ below.
 ### Loggging level
--D**LOG_LEVEL**=LOG_SEV_DEBUG       
+-D<b>LOG_LEVEL</b>=LOG_SEV_DEBUG  
 Define which logging statements will be included in the code via `LOG_LEVEL` before inclusion of `clue.hpp`.
 
 ### Module name
--D**LOG_MODULE_NAME**=*name*
+-D<b>LOG_MODULE_NAME</b>=*name*  
 Log messages may include a _module_ or _feature_ identifier right after the severity. You add such an identifer by defining `LOG_MODULE_NAME` before inclusion of `clue.hpp`. For example, a .cpp file may contain:
 	#define LOG_MODULE_NAME "Gearbox"
 	#include "clue.hpp"
@@ -105,25 +105,25 @@ Compile and run:
 	2014-03-15T17:29:11    Notice: Gearbox: Gear switched to: 5
 
 ### Logging destination control
--D**LOG\_TO\_...**  
+-D<b>LOG\_TO\_...</b>  
 To select a specific logging destination, define one of the following before inclusion of `clue.hpp`.
 
--D**LOG_TO_CONSOLE**  
+-D<b>LOG_TO_CONSOLE</b>  
 Log to `std::clog`.
 
--D**LOG_TO_DEBUGGER**  
+-D<b>LOG_TO_DEBUGGER</b>  
 On Windows, log via `OutputDebugString()`. On Unix: TBD.
  
--D**LOG_TO_EVENTLOG**  
+-D<b>LOG_TO_EVENTLOG</b>  
 Windows only. Log via `ReportEvent()`. See source code for mapping in `to_eventlog_severity()` from clue (syslog) severity to event log severity.
 
--D**LOG_TO_SYSLOG**    
+-D<b>LOG_TO_SYSLOG</b>    
 NTS:To be verified (Unix/Windows). 
 
 If none of these is defined and you didn't define your own backend (see below), `clue` will select `console` for non-GUI builds, `debugger` for Windows GUI build (`_WINDOWS` is defined), and `syslog` on Unix (TBD).
 
 ### Define your own backend or logging destination
-**clue_LOG_EXPRESSION(** *severity*, *expr* **)**
+**clue_LOG_EXPRESSION(** *severity*, *expr* **)**  
 `clue` allows to specify a backend to log to a destionation  of your choice. You do this by defining `clue_LOG_EXPRESSION` before inclusion of `clue.hpp`. For example:
 	#define clue_LOG_EXPRESSION( severity, expr ) \
 	    std::cout << clue::to_severity_text(severity) << ": " << expr
@@ -197,6 +197,9 @@ Notes and References
 --------------------
 
 [1] Mark Nelson [Blundering into the One Definition Rule](http://www.drdobbs.com/cpp/blundering-into-the-one-definition-rule/240166489). DrDobbs. 11 March 2014.
+
 [2] Matthew Wilson. Pantheios Tips 'n' Tricks. [Choosing severity levels](http://blog.pantheios.org/2010/10/choosing-severity-levels.html). 30 October 2010.
+
 [3] Matthew Wilson. [Quality Matters: The Worst Form of 'Error' Handling Except For All The Others](http://accu.org/index.php/journals/1681), section A new vocabulary. Overload, 18(98):28–32, August 2010.
+
 [4] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
