@@ -2,10 +2,11 @@
 
 // -DLOG_TO_CONSOLE
 // -DLOG_TO_DEBUGGER
+// -DLOG_TO_EVENTLOG
 // -DLOG_TO_SYSLOG
 // -DLOG_LEVEL=LOG_SEV_NOTICE
 
-#define LOG_MODULE_PREFIX "Module"
+//#define LOG_MODULE_NAME "Module"
 
 #include "clue.hpp"
 
@@ -23,7 +24,7 @@ int main()
     clue_LOG_WARNING   ( "you should be aware of: "                 << "e.g. disk 90% full, please free some" );
     clue_LOG_NOTICE    ( "operating normal: "                       << "database connection achieved" );
     clue_LOG_INFO      ( "monitoring health of the system: "        << "tracking more actions, not significantly degrading performance" );
-    clue_LOG_DEBUG     ( "tracking detailed information: "          << "speed:3.14 m/s" );
+    clue_LOG_DEBUG     ( "tracking detailed information: "          << "speed: " << 3.14 << " m/s" );
 
     clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, "see Pantheios: The C++ Logging Library SweetSpot, http://www.pantheios.org/" );
 }
@@ -32,6 +33,8 @@ int main()
 
 // cl -nologo -EHsc example1.cpp && example1
 // cl -nologo -EHsc -D_WINDOWS example1.cpp && example1
+// cl -nologo -EHsc -DLOG_TO_EVENTLOG example1.cpp Advapi32.lib && example1
+
 
 // cl -nologo -EHsc -DLOG_LEVEL=3 example1.cpp && example1
 // cl -nologo -EHsc -DLOG_LEVEL=LOG_LEVEL_NOTICE example1.cpp && example1
