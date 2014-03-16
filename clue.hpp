@@ -299,13 +299,13 @@ inline std::string to_severities_text( int const level, std::string const postfi
 
 } // namespace clue
 
-#ifdef clue_NO_TIME
+#ifdef clue_NO_TIMESTAMP
 
 namespace clue {
 inline std::string now_text() { return ""; }
 }
 
-#else // clue_NO_TIME
+#else // clue_NO_TIMESTAMP
 
 # include <ctime>
 
@@ -330,7 +330,7 @@ inline std::string now_text()
 }
 } // namespace clue
 
-#endif // clue_NO_TIME
+#endif // clue_NO_TIMESTAMP
 
 #ifdef clue_LOG_TO_DEBUGGER_WINDOWS
 

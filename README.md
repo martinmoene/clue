@@ -142,7 +142,7 @@ Compile and run:
 	Notice: Hello world
 
 ### Other Macros
--D<b>clue_NO_TIME</b>  
+-D<b>clue_NO_TIMESTAMP</b>  
 Define this to omit the time from the logged messages.
 
 **LOG_LOGGED_LEVELS()**  
@@ -165,7 +165,7 @@ std::string **text_with_or(** std::string const & *prefix*, std::string const & 
 Return *text* enclosed in *prefix* and *postfix* if *text* is non-empty, otherwise return *or_text*.
 
 std::string **now_text()**;  
-Return date and time as "*yyyy-mm-dd*&zwj;T&zwj;*hh:mm:ss*" [4], or empty string if `clue_NO_TIME` is defined. 
+Return date and time as "*yyyy-mm-dd*&zwj;T&zwj;*hh:mm:ss*" [4], or empty string if `clue_NO_TIMESTAMP` is defined. 
 
 std::string **to_module_text(** std::string const & *module* **)**;  
 Return ": _module_" or empty string if module itself is empty.
