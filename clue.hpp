@@ -226,30 +226,24 @@ const int clue_LOG_SEV_MAX       = 7;
 
 #if defined( clue_LOG_TO_DEBUGGER_WINDOWS ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::to_ref( clue::windbg::create( severity, clue_LOG_PREFIX_WIDTH ) ) << \
+    clue::windbg( severity, clue_LOG_PREFIX_WIDTH ).get() << \
         clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr
 #endif
 
 #if defined( clue_LOG_TO_EVENTLOG ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::to_ref( clue::evtlog::create( severity ) ) << \
+    clue::evtlog( severity ).get() << \
         clue_LOG_MODULE_NAME << ": " << expr
 #endif
 
 #if defined( clue_LOG_TO_SYSLOG ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::to_ref( clue::syslog::create( severity ) ) << \
+    clue::syslog( severity ).get() << \
         clue_LOG_MODULE_NAME << ": " << expr
 #endif
 
 namespace clue
 {
-
-template<typename T>
-T & to_ref( T const& x )
-{
-    return const_cast<T&>(x);
-}
 
 inline std::string text_or( std::string const & text, std::string const & or_text )
 {
@@ -362,10 +356,10 @@ public:
     {
         OutputDebugString( stream.str().c_str() );
     }
-
-    static windbg create( int const severity, int const severity_width )
-    {
-        return windbg( severity, severity_width );
+    
+    windbg & get() 
+    { 
+        return *this; 
     }
 
 protected:
@@ -456,9 +450,9 @@ public:
         ::DeregisterEventSource( hlog );
     }
 
-    static evtlog create( int const severity )
-    {
-        return evtlog( severity );
+    evtlog & get() 
+    { 
+        return *this; 
     }
 
 protected:
@@ -522,9 +516,9 @@ public:
         ::syslog( to_syslog_severity(severity), stream.str().c_str() );
     }
 
-    static syslog create( int const severity )
-    {
-        return syslog( severity );
+    syslog & get() 
+    { 
+        return *this; 
     }
 
 protected:
