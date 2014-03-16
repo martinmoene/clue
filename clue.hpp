@@ -232,7 +232,7 @@ const int clue_LOG_SEV_MAX       = 7;
 
 #if defined( clue_LOG_TO_EVENTLOG ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::evtlog( severity ).get() << \
+    clue::evtlog( severity, clue_LOG_MODULE_NAME ).get() << \
         clue_LOG_MODULE_NAME << ": " << expr
 #endif
 
@@ -382,11 +382,6 @@ windbg & operator<<( windbg & stream, T const & that )
 namespace clue
 {
 
-inline const char * text_or( char const * const text, char const * const or_text )
-{
-    return strlen(text) ? text : or_text;
-}
-
 inline int to_eventlog_severity( int severity )
 {
     assert( clue_LOG_SEV_NONE <= severity && severity <= clue_LOG_SEV_MAX && "invalid severity" );
@@ -412,12 +407,14 @@ class evtlog
     friend evtlog & operator<<( evtlog & stream, T const & that );
 
 public:
-    evtlog( int const severity )
+    evtlog( int const severity, std::string const & module )
     : severity( severity )
+    , module( module)
     , stream() {}
 
     evtlog( evtlog const & other )
     : severity( other.severity )
+    , module( other.module)
     , stream()
     {
         stream << other.stream.rdbuf();
@@ -433,7 +430,7 @@ public:
         const char *strings[]  = { text.c_str(), };
 
         const ::HANDLE hlog = ::RegisterEventSource(
-            0, text_or( clue_LOG_MODULE_NAME, "[clue]" ) );
+            0, text_or( module, "[clue]" ).c_str() );
 
         ::ReportEvent(
             hlog          // HANDLE hEventLog,    // handle returned by RegisterEventSource
@@ -457,6 +454,7 @@ public:
 
 private:
     const int severity;
+    const std::string module;
     std::ostringstream stream;
 };
 
