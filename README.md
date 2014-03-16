@@ -162,7 +162,7 @@ std::string **text_with_or(** std::string const & *prefix*, std::string const & 
 Return *text* enclosed in *prefix* and *postfix* if *text* is non-empty, otherwise return *or_text*.
 
 std::string **now_text()**;  
-Return date and time as "*yyyy-mm-dd**&zwj;T&zwj;*hh:mm:ss*" [4], or empty string if `clue_NO_TIME` is defined. 
+Return date and time as "*yyyy-mm-dd*&zwj;T&zwj;*hh:mm:ss*" [4], or empty string if `clue_NO_TIME` is defined. 
 
 std::string **to_module_text(** std::string const & *module* **)**;  
 Return ": _module_" or empty string if module itself is empty.
