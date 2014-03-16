@@ -362,7 +362,7 @@ public:
         return *this; 
     }
 
-protected:
+private:
     std::ostringstream stream;
 };
 
@@ -455,7 +455,7 @@ public:
         return *this; 
     }
 
-protected:
+private:
     const int severity;
     std::ostringstream stream;
 };
@@ -521,7 +521,7 @@ public:
         return *this; 
     }
 
-protected:
+private:
     const int severity;
     std::ostringstream stream;
 };
