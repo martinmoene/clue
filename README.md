@@ -207,7 +207,7 @@ Notes and References
 
 [3] Matthew Wilson. [Quality Matters: The Worst Form of 'Error' Handling Except For All The Others](http://accu.org/index.php/journals/1681), section *A new vocabulary*. Overload, 18(98):28-32, August 2010.
 
-[4] [syslog(3)]()http://man7.org/linux/man-pages/man3/syslog.3.html)
+[4] [syslog(3)](http://man7.org/linux/man-pages/man3/syslog.3.html)
 
 [5] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
 
