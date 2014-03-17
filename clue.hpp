@@ -226,19 +226,19 @@ const int clue_LOG_SEV_MAX       = 7;
 
 #if defined( clue_LOG_TO_DEBUGGER_WINDOWS ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::windbg( severity, clue_LOG_PREFIX_WIDTH ).get() << \
+    clue::windbg( severity, clue_LOG_PREFIX_WIDTH ) << \
         clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr
 #endif
 
 #if defined( clue_LOG_TO_EVENTLOG ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::evtlog( severity, clue_LOG_MODULE_NAME ).get() << \
+    clue::evtlog( severity, clue_LOG_MODULE_NAME ) << \
         clue_LOG_MODULE_NAME << ": " << expr
 #endif
 
 #if defined( clue_LOG_TO_SYSLOG ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::syslog( severity ).get() << \
+    clue::syslog( severity ) << \
         clue_LOG_MODULE_NAME << ": " << expr
 #endif
 
@@ -333,9 +333,6 @@ namespace clue
 
 class windbg
 {
-    template<typename T>
-    friend windbg & operator<<( windbg & stream, T const & that );
-
 public:
     windbg( int const severity, int const severity_width )
     : stream()
@@ -349,29 +346,21 @@ public:
         stream << other.stream.rdbuf();
     }
 
-//    windbg( windbg && other )
-//    : stream( std::move( other ) ) {}
-
     ~windbg()
     {
         OutputDebugString( stream.str().c_str() );
     }
 
-    windbg & get()
+    template<typename T>
+    windbg & operator<<( T const & that )
     {
+        stream << that;
         return *this;
     }
 
 private:
     std::ostringstream stream;
 };
-
-template<typename T>
-windbg & operator<<( windbg & stream, T const & that )
-{
-    stream.stream << that;
-    return stream;
-}
 
 } // namespace clue
 
@@ -403,9 +392,6 @@ inline int to_eventlog_severity( int severity )
 
 class evtlog
 {
-    template<typename T>
-    friend evtlog & operator<<( evtlog & stream, T const & that );
-
 public:
     evtlog( int const severity, std::string const & module )
     : severity( severity )
@@ -419,9 +405,6 @@ public:
     {
         stream << other.stream.rdbuf();
     }
-
-//    evtlog( evtlog && other )
-//    : stream( std::move( other ) ) {}
 
     ~evtlog()
     {
@@ -447,8 +430,10 @@ public:
         ::DeregisterEventSource( hlog );
     }
 
-    evtlog & get()
+    template<typename T>
+    evtlog & operator<<( T const & that )
     {
+        stream << that;
         return *this;
     }
 
@@ -457,13 +442,6 @@ private:
     const std::string module;
     std::ostringstream stream;
 };
-
-template<typename T>
-evtlog & operator<<( evtlog & stream, T const & that )
-{
-    stream.stream << that;
-    return stream;
-}
 
 } // namespace clue
 
@@ -494,9 +472,6 @@ inline int to_syslog_severity( int severity )
 
 class syslog
 {
-    template<typename T>
-    friend syslog& operator<<( syslog& stream, const T& that );
-
 public:
     syslog( int const severity )
     : severity( severity )
@@ -517,8 +492,10 @@ public:
         ::closelog();
     }
 
-    syslog & get()
+    template<typename T>
+    syslog & operator<<( T const & that )
     {
+        stream << that;
         return *this;
     }
 
@@ -526,13 +503,6 @@ private:
     const int severity;
     std::ostringstream stream;
 };
-
-template<typename T>
-syslog & operator<<( syslog & stream, T const & that )
-{
-    stream.stream << that;
-    return stream;
-}
 
 } // namespace clue
 
