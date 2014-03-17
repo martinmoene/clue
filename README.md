@@ -58,7 +58,7 @@ Synopsis
 All macros of `clue` start with `clue_` to hopefully make them unique. Note however, that at default also macros without the leading `clue_` are available. Define `clue_NO_SHORT_NAMES` to omit the short variants.
 
 ### Logging macros
-`clue` defines the following logging macros.  
+`clue` defines the following logging macros (see note below).  
 **LOG_EMERGENCY(** _expr_ **)**  
 **LOG_ALERT    (** _expr_ **)**  
 **LOG_CRITICAL (** _expr_ **)**  
@@ -68,6 +68,8 @@ All macros of `clue` start with `clue_` to hopefully make them unique. Note howe
 **LOG_INFO     (** _expr_ **)**  
 **LOG_DEBUG    (** _expr_ **)**  
 Use these like `LOG_NOTICE( "Gear switched to: " << gear );`
+
+Note: if `clue_LOG_TO_SYSLOG` or `LOG_TO_SYSLOG` is defined, the above short variants are not available as these would clash with the syslog severities.
           
 ### Log severities
 `clue` defines the following severities.  
