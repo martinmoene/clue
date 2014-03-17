@@ -11,7 +11,9 @@ If your logging requirements are modest or you like to begin _light_, then `clue
 - [Example usage](#example-usage)
 - [Compile and run](#compile-and-run)
 - [Synopsis](#synopsis)
+- [Dependencies](#dependencies)
 - [Reported to work with](#reported-to-work-with)
+- [Other logging libraries](#other-logging-libraries)
 - [Notes and References](#notes-and-references)
 
 <!--- [Variants of lest](#variants-of-lest) -->
@@ -35,6 +37,7 @@ int main()
 
 ```
 The terminology in above messages is taken from the article by Matthew Wilson [Choosing severity levels](http://blog.pantheios.org/2010/10/choosing-severity-levels.html) on the blog of the Pantheios logging framework [2]. A description of these terms can be found in [3].
+
 
 Compile and run
 ---------------
@@ -84,9 +87,10 @@ Note: if `clue_LOG_TO_SYSLOG` or `LOG_TO_SYSLOG` is defined, the above short var
 **LOG_SEV_DEBUG**  
 **LOG_SEV_MAX**  
 See also section _Logging level_ below.
+
 ### Loggging level
 -D<b>LOG_LEVEL</b>=LOG_SEV_DEBUG  
-Define which logging statements will be included in the code via `LOG_LEVEL` before inclusion of `clue.hpp`.
+Define which logging statements will be included in the code via `LOG_LEVEL` before inclusion of `clue.hpp`. If you do not define `LOG_LEVEL`, all logging statements are included.
 
 ### Module name
 -D<b>LOG_MODULE_NAME</b>=*name*  
@@ -160,6 +164,7 @@ Types and functions are located in namespace clue.
 
 ### Utility functions
 `clue` uses several functions that may also be useful to you.
+
 #### General
 std::string **text_or(** std::string const & *text*, std::string const & *or_text* **)**;  
 Return *text* if non-empty, otherwise return *or_text*.
@@ -188,6 +193,11 @@ int **to_syslog_severity(** int *severity* **)**;
 Return the syslog severity for the given `clue` severity.
 
 
+Dependencies
+------------
+`clue` depends on the C++ standard library. For logging to the Windows eventlog it requires access to OutputDebugString(). For logging to the Unix system logger it requires openlog(), syslog() and closelog() declared in \<syslog.h\>.
+
+
 Reported to work with
 ---------------------
 `clue` should work with any C++03 compiler. It has been reported to work with the following compilers:
@@ -199,6 +209,12 @@ Reported to work with
 Variants of clue
 ----------------
 -->
+
+Other logging libraries
+-----------------------
+- [Boost.Log](http://www.boost.org/doc/libs/1_55_0/libs/log/doc/html/) - C++ logging library -- simplicity, extensibility, performance.
+- [mlog](https://github.com/zschoche/mlog) - Comfortable lightweight C++ logging library -- cross-platform, C++11.
+
 
 Notes and References
 --------------------
@@ -212,6 +228,3 @@ Notes and References
 [4] [syslog(3)](http://man7.org/linux/man-pages/man3/syslog.3.html)
 
 [5] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
-
-
-
