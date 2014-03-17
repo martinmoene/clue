@@ -123,11 +123,11 @@ Windows only. Log via `ReportEvent()`. See source code in `to_eventlog_severity(
 NTS:To be verified (Unix/Windows). 
 See also syslog(3) [4].
 
-If none of these is defined and you didn't define your own backend (see below), `clue` will select `console` for non-GUI builds, `debugger` for Windows GUI build (`_WINDOWS` is defined), and `syslog` on Unix (TBD).
+If none of these is defined and you didn't define your own back-end (see below), `clue` will select `console` for non-GUI builds, `debugger` for Windows GUI build (`_WINDOWS` is defined), and `syslog` on Unix (TBD).
 
-### Define your own backend or logging destination
+### Define your own back-end or logging destination
 **clue_LOG_EXPRESSION(** *severity*, *expr* **)**  
-`clue` allows to specify a backend to log to a destionation  of your choice. You do this by defining `clue_LOG_EXPRESSION` before inclusion of `clue.hpp`. For example:
+`clue` allows to specify a back-end to log to a destination  of your choice. You do this by defining `clue_LOG_EXPRESSION` before inclusion of `clue.hpp`. For example:
 
 	#define clue_LOG_EXPRESSION( severity, expr ) \
 	    std::cout << clue::to_severity_text(severity) << ": " << expr
