@@ -356,10 +356,10 @@ public:
     {
         OutputDebugString( stream.str().c_str() );
     }
-    
-    windbg & get() 
-    { 
-        return *this; 
+
+    windbg & get()
+    {
+        return *this;
     }
 
 private:
@@ -447,9 +447,9 @@ public:
         ::DeregisterEventSource( hlog );
     }
 
-    evtlog & get() 
-    { 
-        return *this; 
+    evtlog & get()
+    {
+        return *this;
     }
 
 private:
@@ -511,12 +511,15 @@ public:
 
     ~syslog()
     {
-        ::syslog( to_syslog_severity(severity), stream.str().c_str() );
+        // emit: program-name[pid]:
+        ::openlog( NULL, LOG_PID, LOG_USER );
+        ::syslog ( to_syslog_severity(severity), "%s", stream.str().c_str() );
+        ::closelog();
     }
 
-    syslog & get() 
-    { 
-        return *this; 
+    syslog & get()
+    {
+        return *this;
     }
 
 private:

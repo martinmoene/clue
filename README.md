@@ -119,6 +119,7 @@ Windows only. Log via `ReportEvent()`. See source code in `to_eventlog_severity(
 
 -D<b>LOG_TO_SYSLOG</b>    
 NTS:To be verified (Unix/Windows). 
+See also syslog(3) [4].
 
 If none of these is defined and you didn't define your own backend (see below), `clue` will select `console` for non-GUI builds, `debugger` for Windows GUI build (`_WINDOWS` is defined), and `syslog` on Unix (TBD).
 
@@ -165,7 +166,7 @@ std::string **text_with_or(** std::string const & *prefix*, std::string const & 
 Return *text* enclosed in *prefix* and *postfix* if *text* is non-empty, otherwise return *or_text*.
 
 std::string **now_text()**;  
-Return date and time as "*yyyy-mm-dd*&zwj;T&zwj;*hh:mm:ss*" [4], or empty string if `clue_NO_TIMESTAMP` is defined. 
+Return date and time as "*yyyy-mm-dd*&zwj;T&zwj;*hh:mm:ss*" [5], or empty string if `clue_NO_TIMESTAMP` is defined. 
 
 std::string **to_module_text(** std::string const & *module* **)**;  
 Return ": _module_" or empty string if module itself is empty.
@@ -206,4 +207,9 @@ Notes and References
 
 [3] Matthew Wilson. [Quality Matters: The Worst Form of 'Error' Handling Except For All The Others](http://accu.org/index.php/journals/1681), section *A new vocabulary*. Overload, 18(98):28-32, August 2010.
 
-[4] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
+[4] [syslog(3)]()http://man7.org/linux/man-pages/man3/syslog.3.html)
+
+[5] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
+
+
+
