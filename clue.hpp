@@ -107,7 +107,7 @@
 #  define LOG_DEBUG          clue_LOG_DEBUG
 # endif
 
-# define LOG_LOGGED_LEVELS   clue_LOG_LOGGED_LEVELS
+# define LOG_LOGGED_SEVERITIES   clue_LOG_LOGGED_SEVERITIES
 # define LOG_EXPRESSION      clue_LOG_EXPRESSION
 
 #endif // clue_NO_SHORT_NAMES
@@ -165,7 +165,7 @@ const int clue_LOG_SEV_MAX       = 7;
 # define clue_LOG_PREFIX_WIDTH      sizeof( clue_LOG_SEV_EMERGENCY_TEXT )
 #endif
 
-#define clue_LOG_LOGGED_LEVELS() \
+#define clue_LOG_LOGGED_SEVERITIES() \
     clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, clue::to_severities_text( clue_LOG_LEVEL ) )
 
 #if clue_LOG_LEVEL >= clue_LOG_SEV_EMERGENCY

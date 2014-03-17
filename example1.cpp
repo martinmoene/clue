@@ -14,7 +14,7 @@ int main()
 {
     // -DLOG_TO_SYSLOG requires use of clue_ prefix
 
-    clue_LOG_LOGGED_LEVELS();
+    clue_LOG_LOGGED_SEVERITIES();
 
     clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, "The log levels currently turned on are..." );
     clue_LOG_EMERGENCY ( "design by contract violation: "           << "irrecoverable, terminating..." );

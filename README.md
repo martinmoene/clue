@@ -146,7 +146,7 @@ Compile and run:
 -D<b>clue_NO_TIMESTAMP</b>  
 Define this to omit the time from the logged messages.
 
-**LOG_LOGGED_LEVELS()**  
+**LOG_LOGGED_SEVERITIES()**  
 Call this macro to issue a log message with severity LOG_SEV_NONE that enumerates the severities that are included in the build. For example as "[clue]: Emergency, Alert, Critical, Error, Warning, Notice, Info, Debug." (time omitted).
 
 **LOG_EXPRESSION(** *severity*, *expr* **)**  
