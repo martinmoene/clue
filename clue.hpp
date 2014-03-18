@@ -277,7 +277,7 @@ inline std::string to_severity_text( int const severity )
     if ( severity == clue_LOG_SEV_NONE )
         return clue_LOG_SEV_NONE_TEXT;
 
-    assert( LOG_SEV_EMERGENCY == 0 && "required by lookup table" );
+    assert( clue_LOG_SEV_EMERGENCY == 0 && "required by lookup table" );
 
     std::string const cont[] =
     {
