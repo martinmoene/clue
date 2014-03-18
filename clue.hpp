@@ -137,18 +137,18 @@
 # include <syslog.h>
 #endif
 
-const int clue_LOG_SEV_NONE      = -1;
-const int clue_LOG_SEV_EMERGENCY = 0;
-const int clue_LOG_SEV_ALERT     = 1;
-const int clue_LOG_SEV_CRITICAL  = 2;
-const int clue_LOG_SEV_ERROR     = 3;
-const int clue_LOG_SEV_WARNING   = 4;
-const int clue_LOG_SEV_NOTICE    = 5;
-const int clue_LOG_SEV_INFO      = 6;
-const int clue_LOG_SEV_DEBUG     = 7;
-const int clue_LOG_SEV_MAX       = 7;
+#define clue_LOG_SEV_NONE     -1
+#define clue_LOG_SEV_EMERGENCY 0
+#define clue_LOG_SEV_ALERT     1
+#define clue_LOG_SEV_CRITICAL  2
+#define clue_LOG_SEV_ERROR     3
+#define clue_LOG_SEV_WARNING   4
+#define clue_LOG_SEV_NOTICE    5
+#define clue_LOG_SEV_INFO      6
+#define clue_LOG_SEV_DEBUG     7
+#define clue_LOG_SEV_MAX       7
 
-#ifndef clue_LOG_LEVEL
+#ifndef  clue_LOG_LEVEL
 # define clue_LOG_LEVEL clue_LOG_SEV_DEBUG
 #endif
 
