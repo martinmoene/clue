@@ -214,6 +214,7 @@ Other logging libraries
 -----------------------
 - [Boost.Log](http://www.boost.org/doc/libs/1_55_0/libs/log/doc/html/) - C++ logging library -- simplicity, extensibility, performance.
 - [mlog](https://github.com/zschoche/mlog) - Comfortable lightweight C++ logging library -- cross-platform, C++11.
+- [Pantheios](http://www.pantheios.org/) - Pantheios is a C/C++ Diagnostic Logging API library, offering type-safety, efficiency, genericity and extensibility.
 
 
 Notes and References
