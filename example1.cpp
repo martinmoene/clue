@@ -5,6 +5,7 @@
 // -DLOG_TO_EVENTLOG
 // -DLOG_TO_SYSLOG
 // -DLOG_LEVEL=LOG_SEV_NOTICE
+// -DLOG_LEVEL_BUILD=LOG_SEV_INFO
 
 //#define LOG_MODULE_NAME "Module"
 
@@ -35,6 +36,6 @@ int main()
 // cl -nologo -W4 -EHsc -D_WINDOWS example1.cpp && example1
 // cl -nologo -W4 -EHsc -DLOG_TO_EVENTLOG example1.cpp Advapi32.lib && example1
 
-// cl -nologo -W4 -EHsc -DLOG_LEVEL=3 example1.cpp && example1
-// cl -nologo -W4 -EHsc -DLOG_LEVEL=LOG_SEV_NOTICE example1.cpp && example1
-// cl -nologo -W4 -EHsc -DLOG_LEVEL=LOG_SEV_NOTICE -DLOG_TO_DEBUGGER example1.cpp && example1
+// cl -nologo -W4 -EHsc -DLOG_LEVEL_BUILD=3 example1.cpp && example1
+// cl -nologo -W4 -EHsc -DLOG_LEVEL_BUILD=LOG_SEV_NOTICE example1.cpp && example1
+// cl -nologo -W4 -EHsc -DLOG_LEVEL_BUILD=LOG_SEV_NOTICE -DLOG_TO_DEBUGGER example1.cpp && example1

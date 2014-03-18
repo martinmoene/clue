@@ -32,11 +32,15 @@
 # endif
 
 # ifdef  LOG_LEVEL
-#  define clue_LOG_LEVEL  LOG_LEVEL
+#  define clue_LOG_LEVEL        LOG_LEVEL
+# endif
+
+# ifdef  LOG_LEVEL_BUILD
+#  define clue_LOG_LEVEL_BUILD  LOG_LEVEL_BUILD
 # endif
 
 # ifdef  LOG_TO_CONSOLE
-#  define clue_LOG_TO_CONSOLE  LOG_TO_CONSOLE
+#  define clue_LOG_TO_CONSOLE   LOG_TO_CONSOLE
 # endif
 
 # ifdef  LOG_TO_DEBUGGER
@@ -52,11 +56,11 @@
 # endif
 
 # ifdef  LOG_TO_SYSLOG
-#  define clue_LOG_TO_SYSLOG  LOG_TO_SYSLOG
+#  define clue_LOG_TO_SYSLOG    LOG_TO_SYSLOG
 # endif
 
 # ifdef  LOG_EXPRESSION
-#  define clue_LOG_EXPRESSION  LOG_EXPRESSIONLOG_TO_SYSLOG
+#  define clue_LOG_EXPRESSION   LOG_EXPRESSIONLOG_TO_SYSLOG
 # endif
 
 #endif // clue_NO_SHORT_NAMES
@@ -149,7 +153,11 @@
 #define clue_LOG_SEV_MAX        7
 
 #ifndef  clue_LOG_LEVEL
-# define clue_LOG_LEVEL clue_LOG_SEV_DEBUG
+# define clue_LOG_LEVEL         clue_LOG_SEV_DEBUG
+#endif
+
+#ifndef  clue_LOG_LEVEL_BUILD
+# define clue_LOG_LEVEL_BUILD   clue_LOG_SEV_DEBUG
 #endif
 
 #define clue_LOG_SEV_NONE_TEXT       "[clue]"
@@ -170,55 +178,64 @@
 # define clue_LOG_PREFIX_WIDTH      sizeof( clue_LOG_SEV_EMERGENCY_TEXT )
 #endif
 
+#define clue_is_active_build( severity ) \
+    ( severity <= clue_LOG_LEVEL_BUILD )
+
+#define clue_is_active( severity ) \
+    ( severity <= clue_LOG_LEVEL )
+
 #define clue_LOG_LOGGED_SEVERITIES() \
-    clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, clue::to_severities_text( clue_LOG_LEVEL ) )
+    clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, clue::to_severities_text( clue_LOG_LEVEL_BUILD ) )
 
 #define clue_LOG_NO_EXPRESSION() \
-    do {} while( clue::serum(false) )
+    do {} while( clue::is_true(false) )
 
-#if clue_LOG_LEVEL >= clue_LOG_SEV_EMERGENCY
+#define clue_IS_ACTIVE( severity ) \
+    ( clue_is_active_build( severity )  ||  !defined( clue_LOG_OMIT_UNUSED_LOG_EXPRESSION ) )
+
+#if clue_IS_ACTIVE( clue_LOG_SEV_EMERGENCY )
 # define clue_LOG_EMERGENCY( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_EMERGENCY, expr )
 #else
 # define clue_LOG_EMERGENCY( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
-#if clue_LOG_LEVEL >= clue_LOG_SEV_ALERT
+#if clue_IS_ACTIVE( clue_LOG_SEV_ALERT ) 
 # define clue_LOG_ALERT( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_ALERT, expr )
 #else
 # define clue_LOG_ALERT( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
-#if clue_LOG_LEVEL >= clue_LOG_SEV_CRITICAL
+#if clue_IS_ACTIVE( clue_LOG_SEV_CRITICAL )
 # define clue_LOG_CRITICAL( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_CRITICAL, expr )
 #else
 # define clue_LOG_CRITICAL( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
-#if clue_LOG_LEVEL >= clue_LOG_SEV_ERROR
+#if clue_IS_ACTIVE( clue_LOG_SEV_ERROR )
 # define clue_LOG_ERROR( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_ERROR, expr )
 #else
 # define clue_LOG_ERROR( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
-#if clue_LOG_LEVEL >= clue_LOG_SEV_WARNING
+#if clue_IS_ACTIVE( clue_LOG_SEV_WARNING )
 # define clue_LOG_WARNING( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_WARNING, expr )
 #else
 # define clue_LOG_WARNING( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
-#if clue_LOG_LEVEL >= clue_LOG_SEV_NOTICE
+#if clue_IS_ACTIVE( clue_LOG_SEV_NOTICE )
 # define clue_LOG_NOTICE( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_NOTICE, expr )
 #else
 # define clue_LOG_NOTICE( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
-#if clue_LOG_LEVEL >= clue_LOG_SEV_INFO
+#if clue_IS_ACTIVE( clue_LOG_SEV_INFO )
 # define clue_LOG_INFO( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_INFO, expr )
 #else
 # define clue_LOG_INFO( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
-#if clue_LOG_LEVEL >= clue_LOG_SEV_DEBUG  &&  !defined( NDEBUG )
+#if clue_IS_ACTIVE( clue_LOG_SEV_DEBUG )  &&  !defined( NDEBUG )
 # define clue_LOG_DEBUG( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_DEBUG, expr )
 #else
 # define clue_LOG_DEBUG( expr ) clue_LOG_NO_EXPRESSION()
@@ -226,34 +243,55 @@
 
 #if defined( clue_LOG_TO_CONSOLE ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    std::clog << \
-        clue::now_text() << std::setw( clue_LOG_PREFIX_WIDTH ) << \
-        clue::to_severity_text(severity) << \
-        clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr << "\n"
+    do { \
+        if ( clue_is_active_build( severity ) ) { \
+            if ( clue_is_active( severity ) ) { \
+                std::clog << \
+                    clue::now_text() << std::setw( clue_LOG_PREFIX_WIDTH ) << \
+                    clue::to_severity_text(severity) << \
+                    clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr << "\n"; \
+            } \
+        } \
+    } while( clue::is_true( false ) )
 #endif
 
 #if defined( clue_LOG_TO_DEBUGGER_WINDOWS ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::windbg( severity, clue_LOG_PREFIX_WIDTH ) << \
-        clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr
-#endif
+    do { \
+        if ( clue_is_active_build( severity ) ) { \
+            if ( clue::windbg const & clue_stream$ = clue::windbg( clue_is_active( severity ) ) ) \
+                clue_stream$ << \
+                    std::setw( clue_LOG_PREFIX_WIDTH ) << clue::to_severity_text( severity ) << \
+                    clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr; \
+            } \
+     } while( clue::is_true(false) )
+#endif 
 
 #if defined( clue_LOG_TO_EVENTLOG ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::evtlog( severity, clue_LOG_MODULE_NAME ) << \
-        clue_LOG_MODULE_NAME << ": " << expr
+    do { \
+        if ( clue_is_active_build( severity ) ) { \
+            if ( clue::evtlog const & clue_stream$ = \
+                    clue::evtlog( clue_is_active( severity ), severity, clue_LOG_MODULE_NAME ) ) \
+                clue_stream$ << clue_LOG_MODULE_NAME << ": " << expr; \
+        } \
+     } while( clue::is_true(false) )
 #endif
 
 #if defined( clue_LOG_TO_SYSLOG ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
-    clue::syslog( severity ) << \
-        clue_LOG_MODULE_NAME << ": " << expr
-#endif
+    do { \
+        if ( clue_is_active_build( severity ) ) { \
+            if ( clue::syslog const & clue_stream$ = clue::syslog( clue_is_active( severity ), severity ) ) \
+                clue_stream$ << clue_LOG_MODULE_NAME << ": " << expr; \
+        } \
+     } while( clue::is_true(false) )
+#endif 
 
 namespace clue
 {
 
-inline bool serum( bool verum ) { return verum; }
+inline bool is_true( bool const on ) { return on; }
 
 inline std::string text_or( std::string const & text, std::string const & or_text )
 {
@@ -344,32 +382,31 @@ namespace clue
 class windbg
 {
 public:
-    windbg( int const severity, int const severity_width )
-    : stream()
-    {
-        stream << std::setw( severity_width ) << to_severity_text( severity );
-    }
-
-    windbg( windbg const & other )
-    : stream()
-    {
-        stream << other.stream.rdbuf();
-    }
+    windbg( bool const active ) 
+    : active( active )
+    , stream() {}
 
     ~windbg()
     {
-        OutputDebugString( stream.str().c_str() );
+        if ( active )
+            OutputDebugString( stream.str().c_str() );
+    }
+
+    operator bool() const 
+    { 
+        return active; 
     }
 
     template<typename T>
-    windbg & operator<<( T const & that )
+    windbg const & operator<<( T const & that ) const
     {
         stream << that;
         return *this;
     }
 
 private:
-    std::ostringstream stream;
+    const bool active;
+    mutable std::ostringstream stream;
 };
 
 } // namespace clue
@@ -403,18 +440,11 @@ inline int to_eventlog_severity( int severity )
 class evtlog
 {
 public:
-    evtlog( int const severity, std::string const & module )
-    : severity( severity )
+    evtlog( bool const active, int const severity, std::string const & module )
+    : active( active )
+    , severity( severity )
     , module( module)
     , stream() {}
-
-    evtlog( evtlog const & other )
-    : severity( other.severity )
-    , module( other.module)
-    , stream()
-    {
-        stream << other.stream.rdbuf();
-    }
 
     ~evtlog()
     {
@@ -440,17 +470,23 @@ public:
         ::DeregisterEventSource( hlog );
     }
 
+    operator bool() const 
+    { 
+        return active; 
+    }
+
     template<typename T>
-    evtlog & operator<<( T const & that )
+    evtlog const & operator<<( T const & that ) const
     {
         stream << that;
         return *this;
     }
 
 private:
+    const bool active;
     const int severity;
     const std::string module;
-    std::ostringstream stream;
+    mutable std::ostringstream stream;
 };
 
 } // namespace clue
@@ -474,7 +510,7 @@ inline int to_syslog_severity( int severity )
         case clue_LOG_SEV_ERROR:     return LOG_ERR;
         case clue_LOG_SEV_WARNING:   return LOG_WARNING;
         case clue_LOG_SEV_NOTICE:    return LOG_NOTICE;
-        case clue_LOG_SEV_INFO:      return LOG_INFO;
+        case clue_LOG_SEV_INFO:      return LOG_INFO;    
         default:
         case clue_LOG_SEV_DEBUG:     return LOG_DEBUG;
     }
@@ -483,16 +519,10 @@ inline int to_syslog_severity( int severity )
 class syslog
 {
 public:
-    syslog( int const severity )
-    : severity( severity )
+    syslog( bool const active, int const severity )
+    : active( active )
+    , severity( severity )
     , stream() {}
-
-    syslog( syslog const & other )
-    : severity( other.severity )
-    , stream()
-    {
-        stream << other.stream.rdbuf();
-    }
 
     ~syslog()
     {
@@ -502,16 +532,22 @@ public:
         ::closelog();
     }
 
+    operator bool() const 
+    { 
+        return active; 
+    }
+
     template<typename T>
-    syslog & operator<<( T const & that )
+    syslog const & operator<<( T const & that ) const
     {
         stream << that;
         return *this;
     }
 
 private:
+    const bool active;
     const int severity;
-    std::ostringstream stream;
+    mutable std::ostringstream stream;
 };
 
 } // namespace clue
