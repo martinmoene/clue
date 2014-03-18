@@ -168,52 +168,55 @@ const int clue_LOG_SEV_MAX       = 7;
 #define clue_LOG_LOGGED_SEVERITIES() \
     clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, clue::to_severities_text( clue_LOG_LEVEL ) )
 
+#define clue_LOG_NO_EXPRESSION() \
+    do {} while( clue::serum(false) )
+
 #if clue_LOG_LEVEL >= clue_LOG_SEV_EMERGENCY
 # define clue_LOG_EMERGENCY( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_EMERGENCY, expr )
 #else
-# define clue_LOG_EMERGENCY( expr )
+# define clue_LOG_EMERGENCY( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
 #if clue_LOG_LEVEL >= clue_LOG_SEV_ALERT
 # define clue_LOG_ALERT( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_ALERT, expr )
 #else
-# define clue_LOG_ALERT( expr )
+# define clue_LOG_ALERT( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
 #if clue_LOG_LEVEL >= clue_LOG_SEV_CRITICAL
 # define clue_LOG_CRITICAL( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_CRITICAL, expr )
 #else
-# define clue_LOG_CRITICAL( expr )
+# define clue_LOG_CRITICAL( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
 #if clue_LOG_LEVEL >= clue_LOG_SEV_ERROR
 # define clue_LOG_ERROR( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_ERROR, expr )
 #else
-# define clue_LOG_ERROR( expr )
+# define clue_LOG_ERROR( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
 #if clue_LOG_LEVEL >= clue_LOG_SEV_WARNING
 # define clue_LOG_WARNING( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_WARNING, expr )
 #else
-# define clue_LOG_WARNING( expr )
+# define clue_LOG_WARNING( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
 #if clue_LOG_LEVEL >= clue_LOG_SEV_NOTICE
 # define clue_LOG_NOTICE( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_NOTICE, expr )
 #else
-# define clue_LOG_NOTICE( expr )
+# define clue_LOG_NOTICE( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
 #if clue_LOG_LEVEL >= clue_LOG_SEV_INFO
 # define clue_LOG_INFO( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_INFO, expr )
 #else
-# define clue_LOG_INFO( expr )
+# define clue_LOG_INFO( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
 #if clue_LOG_LEVEL >= clue_LOG_SEV_DEBUG  &&  !defined( NDEBUG )
 # define clue_LOG_DEBUG( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_DEBUG, expr )
 #else
-# define clue_LOG_DEBUG( expr )
+# define clue_LOG_DEBUG( expr ) clue_LOG_NO_EXPRESSION()
 #endif
 
 #if defined( clue_LOG_TO_CONSOLE ) && !defined( clue_LOG_EXPRESSION )
@@ -244,6 +247,8 @@ const int clue_LOG_SEV_MAX       = 7;
 
 namespace clue
 {
+
+inline bool serum( bool verum ) { return verum; }
 
 inline std::string text_or( std::string const & text, std::string const & or_text )
 {
