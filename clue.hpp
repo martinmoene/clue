@@ -298,7 +298,7 @@ inline std::string to_severities_text( int const level, std::string const postfi
     if ( level < 0 )
         return result + postfix;
 
-    return to_severities_text( level - 1, postfix, to_severity_text( level ) + (result.length() ? ", " : "") + result );
+    return to_severities_text( level - 1, postfix, to_severity_text( level ) + text_with_or( ", ", result, "", "" ) );
 }
 
 } // namespace clue
