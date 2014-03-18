@@ -12,5 +12,5 @@ int main()
     clue_LOG_NOTICE( "Hello" << " world" );
 }
 
-// cl -nologo -EHsc example3.cpp && example3
+// cl -nologo -W4 -EHsc example3.cpp && example3
 // g++ -Wall -Wextra -Weffc++ -o example3.exe example3.cpp && example3
