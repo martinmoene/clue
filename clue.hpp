@@ -20,6 +20,11 @@
 # endif
 #endif
 
+#ifdef clue_COMPILER_IS_MSVC
+# pragma warning( push )
+# pragma warning( disable : 4996 ) // _CRT_SECURE_NO_WARNINGS
+#endif
+
 #ifndef clue_NO_SHORT_NAMES
 
 # ifdef  LOG_MODULE_NAME
@@ -512,5 +517,9 @@ private:
 } // namespace clue
 
 #endif //clue_LOG_TO_SYSLOG
+
+#ifdef clue_COMPILER_IS_MSVC
+# pragma warning( pop ) 
+#endif
 
 #endif // CLUE_CLUE_H_INCLUDED
