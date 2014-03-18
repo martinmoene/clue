@@ -102,18 +102,18 @@
 # define LOG_SEV_MAX        clue_LOG_SEV_MAX
 
 # ifndef clue_LOG_TO_SYSLOG
-#  define LOG_EMERGENCY      clue_LOG_EMERGENCY
-#  define LOG_ALERT          clue_LOG_ALERT
-#  define LOG_CRITICAL       clue_LOG_CRITICAL
-#  define LOG_ERROR          clue_LOG_ERROR
-#  define LOG_WARNING        clue_LOG_WARNING
-#  define LOG_NOTICE         clue_LOG_NOTICE
-#  define LOG_INFO           clue_LOG_INFO
-#  define LOG_DEBUG          clue_LOG_DEBUG
+#  define LOG_EMERGENCY     clue_LOG_EMERGENCY
+#  define LOG_ALERT         clue_LOG_ALERT
+#  define LOG_CRITICAL      clue_LOG_CRITICAL
+#  define LOG_ERROR         clue_LOG_ERROR
+#  define LOG_WARNING       clue_LOG_WARNING
+#  define LOG_NOTICE        clue_LOG_NOTICE
+#  define LOG_INFO          clue_LOG_INFO
+#  define LOG_DEBUG         clue_LOG_DEBUG
 # endif
 
 # define LOG_LOGGED_SEVERITIES   clue_LOG_LOGGED_SEVERITIES
-# define LOG_EXPRESSION      clue_LOG_EXPRESSION
+# define LOG_EXPRESSION     clue_LOG_EXPRESSION
 
 #endif // clue_NO_SHORT_NAMES
 
@@ -137,16 +137,16 @@
 # include <syslog.h>
 #endif
 
-#define clue_LOG_SEV_NONE     -1
-#define clue_LOG_SEV_EMERGENCY 0
-#define clue_LOG_SEV_ALERT     1
-#define clue_LOG_SEV_CRITICAL  2
-#define clue_LOG_SEV_ERROR     3
-#define clue_LOG_SEV_WARNING   4
-#define clue_LOG_SEV_NOTICE    5
-#define clue_LOG_SEV_INFO      6
-#define clue_LOG_SEV_DEBUG     7
-#define clue_LOG_SEV_MAX       7
+#define clue_LOG_SEV_NONE      -1
+#define clue_LOG_SEV_EMERGENCY  0
+#define clue_LOG_SEV_ALERT      1
+#define clue_LOG_SEV_CRITICAL   2
+#define clue_LOG_SEV_ERROR      3
+#define clue_LOG_SEV_WARNING    4
+#define clue_LOG_SEV_NOTICE     5
+#define clue_LOG_SEV_INFO       6
+#define clue_LOG_SEV_DEBUG      7
+#define clue_LOG_SEV_MAX        7
 
 #ifndef  clue_LOG_LEVEL
 # define clue_LOG_LEVEL clue_LOG_SEV_DEBUG
@@ -347,7 +347,7 @@ public:
     windbg( int const severity, int const severity_width )
     : stream()
     {
-        stream << std::setw( severity_width ) << to_severity_text(severity);
+        stream << std::setw( severity_width ) << to_severity_text( severity );
     }
 
     windbg( windbg const & other )
