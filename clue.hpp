@@ -259,11 +259,11 @@
 # define clue_LOG_EXPRESSION( severity, expr ) \
     do { \
         if ( clue_is_active_build( severity ) ) { \
-            if ( clue::windbg const & clue_stream$ = clue::windbg( clue_is_active( severity ) ) ) \
-                clue_stream$ << \
+            if ( clue_is_active( severity ) ) \
+                clue::windbg() << \
                     std::setw( clue_LOG_PREFIX_WIDTH ) << clue::to_severity_text( severity ) << \
                     clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr; \
-            } \
+        } \
      } while( clue::is_true(false) )
 #endif 
 
@@ -271,9 +271,9 @@
 # define clue_LOG_EXPRESSION( severity, expr ) \
     do { \
         if ( clue_is_active_build( severity ) ) { \
-            if ( clue::evtlog const & clue_stream$ = \
-                    clue::evtlog( clue_is_active( severity ), severity, clue_LOG_MODULE_NAME ) ) \
-                clue_stream$ << clue_LOG_MODULE_NAME << ": " << expr; \
+            if ( clue_is_active( severity ) ) \
+                clue::evtlog( severity, clue_LOG_MODULE_NAME ) << \
+                    clue::text_with_or( "", clue_LOG_MODULE_NAME, ": ", "" ) << expr; \
         } \
      } while( clue::is_true(false) )
 #endif
@@ -282,8 +282,9 @@
 # define clue_LOG_EXPRESSION( severity, expr ) \
     do { \
         if ( clue_is_active_build( severity ) ) { \
-            if ( clue::syslog const & clue_stream$ = clue::syslog( clue_is_active( severity ), severity ) ) \
-                clue_stream$ << clue_LOG_MODULE_NAME << ": " << expr; \
+            if ( clue_is_active( severity ) ) \
+                clue::syslog( severity ) << \
+                    clue_LOG_MODULE_NAME << ": " << expr; \
         } \
      } while( clue::is_true(false) )
 #endif 
@@ -382,31 +383,23 @@ namespace clue
 class windbg
 {
 public:
-    windbg( bool const active ) 
-    : active( active )
-    , stream() {}
+    windbg() 
+    : stream() {}
 
     ~windbg()
     {
-        if ( active )
-            OutputDebugString( stream.str().c_str() );
-    }
-
-    operator bool() const 
-    { 
-        return active; 
+        OutputDebugString( stream.str().c_str() );
     }
 
     template<typename T>
-    windbg const & operator<<( T const & that ) const
+    windbg & operator<<( T const & that )
     {
         stream << that;
         return *this;
     }
 
 private:
-    const bool active;
-    mutable std::ostringstream stream;
+    std::ostringstream stream;
 };
 
 } // namespace clue
@@ -440,9 +433,8 @@ inline int to_eventlog_severity( int severity )
 class evtlog
 {
 public:
-    evtlog( bool const active, int const severity, std::string const & module )
-    : active( active )
-    , severity( severity )
+    evtlog( int const severity, std::string const & module )
+    : severity( severity )
     , module( module)
     , stream() {}
 
@@ -470,23 +462,17 @@ public:
         ::DeregisterEventSource( hlog );
     }
 
-    operator bool() const 
-    { 
-        return active; 
-    }
-
     template<typename T>
-    evtlog const & operator<<( T const & that ) const
+    evtlog & operator<<( T const & that )
     {
         stream << that;
         return *this;
     }
 
 private:
-    const bool active;
     const int severity;
     const std::string module;
-    mutable std::ostringstream stream;
+    std::ostringstream stream;
 };
 
 } // namespace clue
@@ -519,9 +505,8 @@ inline int to_syslog_severity( int severity )
 class syslog
 {
 public:
-    syslog( bool const active, int const severity )
-    : active( active )
-    , severity( severity )
+    syslog( int const severity )
+    : severity( severity )
     , stream() {}
 
     ~syslog()
@@ -532,22 +517,16 @@ public:
         ::closelog();
     }
 
-    operator bool() const 
-    { 
-        return active; 
-    }
-
     template<typename T>
-    syslog const & operator<<( T const & that ) const
+    syslog & operator<<( T const & that )
     {
         stream << that;
         return *this;
     }
 
 private:
-    const bool active;
     const int severity;
-    mutable std::ostringstream stream;
+    std::ostringstream stream;
 };
 
 } // namespace clue
