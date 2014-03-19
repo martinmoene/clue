@@ -208,7 +208,7 @@ Reported to work with
 ---------------------
 `clue` should work with any C++03 compiler. It has been reported to work with the following compilers:
 - g++ 4.8.1
-- Visual Studio 6, 2010, 2012
+- Visual Studio 6 (VC6), 2010 (VC10), 2012 (VC11)
 
 
 <!--
