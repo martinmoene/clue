@@ -178,11 +178,14 @@
 # define clue_LOG_PREFIX_WIDTH      sizeof( clue_LOG_SEV_EMERGENCY_TEXT )
 #endif
 
-#define clue_is_active_build( severity ) \
-    ( severity <= clue_LOG_LEVEL_BUILD )
-
 #define clue_is_active( severity ) \
-    ( severity <= clue_LOG_LEVEL )
+    clue::is_true( severity <= clue_LOG_LEVEL )
+
+#define clue_is_active_build( severity ) \
+    clue::is_true( CLUE_IS_ACTIVE_BUILD( severity ) )
+
+#define CLUE_IS_ACTIVE_BUILD( severity ) \
+    ( severity <= clue_LOG_LEVEL_BUILD )
 
 #define clue_LOG_LOGGED_SEVERITIES() \
     clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, clue::to_severities_text( clue_LOG_LEVEL_BUILD ) )
@@ -191,7 +194,7 @@
     do {} while( clue::is_true(false) )
 
 #define clue_IS_ACTIVE( severity ) \
-    ( clue_is_active_build( severity )  ||  !defined( clue_OMIT_UNUSED_LOG_EXPRESSION ) )
+    ( CLUE_IS_ACTIVE_BUILD( severity )  ||  !defined( clue_OMIT_UNUSED_LOG_EXPRESSION ) )
 
 #if clue_IS_ACTIVE( clue_LOG_SEV_EMERGENCY )
 # define clue_LOG_EMERGENCY( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_EMERGENCY, expr )
