@@ -13,5 +13,5 @@ int main()
     clue_LOG_NOTICE( "Gear switched to: " << gear );
 }
 
-// cl -nologo -W4 -EHsc example4-file1.cpp example4-file2.cpp && example4-file1
-// g++ -Wall -Wextra -Weffc++ -o example4-file1.exe example4-file1.cpp example4-file2.cpp && example4-file1
+// cl -nologo -W4 -EHsc -I.. example4-file1.cpp example4-file2.cpp && example4-file1
+// g++ -Wall -Wextra -Weffc++ -I.. -o example4-file1.exe example4-file1.cpp example4-file2.cpp && example4-file1

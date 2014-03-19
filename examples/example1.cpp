@@ -30,12 +30,12 @@ int main()
     clue_LOG_EXPRESSION( clue_LOG_SEV_NONE, "see Pantheios: The C++ Logging Library SweetSpot, http://www.pantheios.org/" );
 }
 
-// g++ -Wall -Wextra -Weffc++ -o example1.exe example1.cpp && example1
+// g++ -Wall -Wextra -Weffc++ -I.. -o example1.exe example1.cpp && example1
 
-// cl -nologo -W4 -EHsc example1.cpp && example1
-// cl -nologo -W4 -EHsc -D_WINDOWS example1.cpp && example1
-// cl -nologo -W4 -EHsc -DLOG_TO_EVENTLOG example1.cpp Advapi32.lib && example1
-
-// cl -nologo -W4 -EHsc -DLOG_LEVEL_BUILD=3 example1.cpp && example1
-// cl -nologo -W4 -EHsc -DLOG_LEVEL_BUILD=LOG_SEV_NOTICE example1.cpp && example1
-// cl -nologo -W4 -EHsc -DLOG_LEVEL_BUILD=LOG_SEV_NOTICE -DLOG_TO_DEBUGGER example1.cpp && example1
+// cl -nologo -W4 -EHsc -I.. example1.cpp && example1
+// cl -nologo -W4 -EHsc -I.. -D_WINDOWS example1.cpp && example1
+// cl -nologo -W4 -EHsc -I.. -DLOG_TO_EVENTLOG example1.cpp Advapi32.lib && example1
+                        
+// cl -nologo -W4 -EHsc -I.. -DLOG_LEVEL_BUILD=3 example1.cpp && example1
+// cl -nologo -W4 -EHsc -I.. -DLOG_LEVEL_BUILD=LOG_SEV_NOTICE example1.cpp && example1
+// cl -nologo -W4 -EHsc -I.. -DLOG_LEVEL_BUILD=LOG_SEV_NOTICE -DLOG_TO_DEBUGGER example1.cpp && example1
