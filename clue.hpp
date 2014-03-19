@@ -191,7 +191,7 @@
     do {} while( clue::is_true(false) )
 
 #define clue_IS_ACTIVE( severity ) \
-    ( clue_is_active_build( severity )  ||  !defined( clue_LOG_OMIT_UNUSED_LOG_EXPRESSION ) )
+    ( clue_is_active_build( severity )  ||  !defined( clue_OMIT_UNUSED_LOG_EXPRESSION ) )
 
 #if clue_IS_ACTIVE( clue_LOG_SEV_EMERGENCY )
 # define clue_LOG_EMERGENCY( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_EMERGENCY, expr )
