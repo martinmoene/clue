@@ -182,9 +182,9 @@
     clue::is_true( severity <= clue_LOG_LEVEL )
 
 #define clue_is_active_build( severity ) \
-    clue::is_true( CLUE_IS_ACTIVE_BUILD( severity ) )
+    clue::is_true( clue_IS_ACTIVE_BUILD( severity ) )
 
-#define CLUE_IS_ACTIVE_BUILD( severity ) \
+#define clue_IS_ACTIVE_BUILD( severity ) \
     ( severity <= clue_LOG_LEVEL_BUILD )
 
 #define clue_LOG_LOGGED_SEVERITIES() \
@@ -194,7 +194,7 @@
     do {} while( clue::is_true(false) )
 
 #define clue_IS_ACTIVE( severity ) \
-    ( CLUE_IS_ACTIVE_BUILD( severity )  ||  !defined( clue_OMIT_UNUSED_LOG_EXPRESSION ) )
+    ( clue_IS_ACTIVE_BUILD( severity )  ||  !defined( clue_OMIT_UNUSED_LOG_EXPRESSION ) )
 
 #if clue_IS_ACTIVE( clue_LOG_SEV_EMERGENCY )
 # define clue_LOG_EMERGENCY( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_EMERGENCY, expr )
