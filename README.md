@@ -207,8 +207,8 @@ Dependencies
 Reported to work with
 ---------------------
 `clue` should work with any C++03 compiler. It has been reported to work with the following compilers:
-- g++ 4.8.1
-- Visual Studio 6 (VC6), 2010 (VC10), 2012 (VC11)
+- g++ 4.6.2, g++ 4.6.3, g++ 4.7.2, g++ 4.8.1
+- Visual C++ 6 (Visual Studio 6), VC10 (VS2010), VC11 (VS2012)
 
 
 <!--
