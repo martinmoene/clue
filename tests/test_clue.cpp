@@ -9,12 +9,12 @@
 #include "clue.hpp"
 #include "lest_cpp03.hpp"
 
-#define TEST( name ) lest_TEST( specification, name )
-
 using namespace lest;
 using namespace clue;
 
 test_specification specification;
+
+#define TEST( name ) lest_TEST( specification, name )
 
 TEST( "Function is_true() to suppress warning \"expression has no effect\" acts as identity function." )
 {
