@@ -235,3 +235,5 @@ Notes and References
 [4] [syslog(3)](http://man7.org/linux/man-pages/man3/syslog.3.html)
 
 [5] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
+
+![Build Status](https://travis-ci.org/martinmoene/clue.png?branch=master)](https://github.com/martinmoene/clue)
