@@ -126,11 +126,13 @@ On Windows, log via `OutputDebugString()`. On Unix: TBD.
 -D<b>LOG_TO_EVENTLOG</b>  
 Windows only. Log via `ReportEvent()`. See source code in `to_eventlog_severity()` for mapping from clue (syslog) severity to event log severity. Note: you must link to `Advapi32.lib`.
 
--D<b>LOG_TO_STRING=var</b>    
-Log to memory. This defines `strlog var;` in namespace clue. Type `strlog` provides:
+-D<b>LOG_TO_STRING</b>    
+Log to memory. This make function `strlog & the_log()` available in namespace clue. Type `strlog` provides:
 - void **clear()** - reset the severity to clue_LOG_SEV_NONE and clear text (as after construction),
 - int **severity()** - the latest logged severity,
 - std::string **text()** - the logged text since the latest clear().
+
+Note: it's not safe to use `the_log()` from different threads.
 
 -D<b>LOG_TO_SYSLOG</b>    
 NTS:To be verified (Unix/Windows). 

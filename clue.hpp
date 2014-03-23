@@ -292,8 +292,8 @@
     do { \
         if ( clue_is_active_build( sev ) ) { \
             if ( clue_is_active( sev ) ) \
-                clue_LOG_TO_STRING.severity( sev ); \
-                clue_LOG_TO_STRING << \
+                the_log().severity( sev ); \
+                the_log() << \
                     clue_LOG_MODULE_NAME << expr; \
         } \
      } while( clue::is_true(false) )
@@ -544,7 +544,11 @@ private:
     std::ostringstream stream;
 };
 
-strlog clue_LOG_TO_STRING;
+strlog & the_log()
+{
+    static strlog log;
+    return log;
+}
 
 } // namespace clue
 
