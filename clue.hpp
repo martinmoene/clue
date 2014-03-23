@@ -55,6 +55,10 @@
 #  define clue_LOG_TO_EVENTLOG  LOG_TO_EVENTLOG
 # endif
 
+# ifdef  LOG_TO_STRING
+#  define clue_LOG_TO_STRING    LOG_TO_STRING
+# endif
+
 # ifdef  LOG_TO_SYSLOG
 #  define clue_LOG_TO_SYSLOG    LOG_TO_SYSLOG
 # endif
@@ -70,6 +74,7 @@
 #if !defined( clue_LOG_TO_CONSOLE  ) && \
     !defined( clue_LOG_TO_DEBUGGER ) && \
     !defined( clue_LOG_TO_EVENTLOG ) && \
+    !defined( clue_LOG_TO_STRING   ) && \
     !defined( clue_LOG_TO_SYSLOG   )
 # if defined( _WINDOWS )
 #  define clue_LOG_TO_DEBUGGER
@@ -83,8 +88,9 @@
 #if defined( clue_LOG_TO_CONSOLE  ) + \
     defined( clue_LOG_TO_DEBUGGER ) + \
     defined( clue_LOG_TO_EVENTLOG ) + \
+    defined( clue_LOG_TO_STRING   ) + \
     defined( clue_LOG_TO_SYSLOG   ) > 1
-# error Please specify one, or none of [clue_]LOG_TO_CONSOLE, [clue_]LOG_TO_DEBUGGER [clue_]LOG_TO_EVENTLOG and [clue_]LOG_TO_SYSLOG
+# error Please specify one, or none of [clue_]LOG_TO_CONSOLE, [clue_]LOG_TO_DEBUGGER [clue_]LOG_TO_EVENTLOG, [clue_]LOG_TO_STRING and [clue_]LOG_TO_SYSLOG
 #endif
 
 // NTS: add UNIX
@@ -280,6 +286,18 @@
         } \
      } while( clue::is_true(false) )
 #endif
+
+#if defined( clue_LOG_TO_STRING ) && !defined( clue_LOG_EXPRESSION )
+# define clue_LOG_EXPRESSION( sev, expr ) \
+    do { \
+        if ( clue_is_active_build( sev ) ) { \
+            if ( clue_is_active( sev ) ) \
+                clue_LOG_TO_STRING.severity( sev ); \
+                clue_LOG_TO_STRING << \
+                    clue_LOG_MODULE_NAME << expr; \
+        } \
+     } while( clue::is_true(false) )
+#endif 
 
 #if defined( clue_LOG_TO_SYSLOG ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( severity, expr ) \
@@ -481,6 +499,56 @@ private:
 } // namespace clue
 
 #endif // clue_LOG_TO_DEBUGGER_WINDOWS
+
+#ifdef clue_LOG_TO_STRING
+
+namespace clue {
+
+class strlog
+{
+public:
+    strlog()
+    : severity_( clue_LOG_SEV_NONE )
+    , stream() {}
+
+    void clear()
+    {
+        severity_ = clue_LOG_SEV_NONE ;
+        stream.str( std::string() );
+    }
+    
+    void severity( int const sev ) 
+    {
+        severity_ = sev;
+    }
+
+    int severity() const
+    {
+        return severity_;
+    }
+
+    std::string text() const
+    {
+        return stream.str();
+    }
+
+    template<typename T>
+    strlog & operator<<( T const & that )
+    {
+        stream << that;
+        return *this;
+    }
+
+private:
+    int severity_;
+    std::ostringstream stream;
+};
+
+strlog clue_LOG_TO_STRING;
+
+} // namespace clue
+
+#endif // clue_LOG_TO_STRING
 
 #ifdef clue_LOG_TO_SYSLOG
 

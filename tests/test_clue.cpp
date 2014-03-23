@@ -6,6 +6,8 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+#define clue_LOG_TO_STRING slog
+
 #include "clue.hpp"
 #include "lest_cpp03.hpp"
 
@@ -94,6 +96,22 @@ TEST( "Function to_severities_text() with non-default postfix ends correctly." )
 {
     char const * const text = "Emergency, Alert$$";
     EXPECT( text == to_severities_text( clue_LOG_SEV_ALERT, "$$" ) );
+}
+
+TEST( "Macro LOG_ALERT() correctly records severity." )
+{
+    slog.clear();
+    LOG_ALERT( "" );
+    EXPECT( slog.severity() == clue_LOG_SEV_ALERT );
+}
+
+TEST( "Macro LOG_TO_STRING() correctly records text." )
+{
+    std::string text = "hello world";
+    
+    slog.clear();
+    LOG_ALERT( text );
+    EXPECT( slog.text() == text );
 }
 
 
