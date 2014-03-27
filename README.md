@@ -70,6 +70,7 @@ All macros of `clue` start with `clue_` to hopefully make them unique. Note howe
 **LOG_NOTICE   (** _expr_ **)**  
 **LOG_INFO     (** _expr_ **)**  
 **LOG_DEBUG    (** _expr_ **)**  
+
 Use these like `LOG_NOTICE( "Gear switched to: " << gear );`
 
 Note: if `clue_LOG_TO_SYSLOG` or `LOG_TO_SYSLOG` is defined, the above short variants are not available as these would clash with the syslog severities.
@@ -86,6 +87,7 @@ Note: if `clue_LOG_TO_SYSLOG` or `LOG_TO_SYSLOG` is defined, the above short var
 **LOG_SEV_INFO**  
 **LOG_SEV_DEBUG**  
 **LOG_SEV_MAX**  
+
 See also section _Logging level_ below.
 
 ### Loggging level
@@ -195,7 +197,7 @@ Return ": _module_" or empty string if module itself is empty.
 std::string **to_severity_text(** int const *severity* **)**;    
 Return a string such as "Emergency", "Notice", etc. for the given severity.
 
-std::string **to_severities_text(** int const *level*, std::string const *postfix* = "." **)**;  
+std::string **to_severities_text(** int const *level*, std::string const & *postfix* = "." **)**;  
 Return a string enumerating the logged severities. For example `to_severities_text( LOG_SEV_CRITICAL );` yields "Emergency, Alert, Critical.".
 
 #### When LOG_EVENTLOG is defined

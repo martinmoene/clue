@@ -353,7 +353,7 @@ inline std::string to_severity_text( int const severity )
     return cont[ severity ];
 }
 
-inline std::string to_severities_text( int const level, std::string const postfix = ".", std::string const result = "" )
+inline std::string to_severities_text( int const level, std::string const & postfix = ".", std::string const & result = "" )
 {
     if ( level < 0 )
         return result + postfix;
