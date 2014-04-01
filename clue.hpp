@@ -291,10 +291,11 @@
 # define clue_LOG_EXPRESSION( sev, expr ) \
     do { \
         if ( clue_is_active_build( sev ) ) { \
-            if ( clue_is_active( sev ) ) \
+            if ( clue_is_active( sev ) ) { \
                 the_log().severity( sev ); \
                 the_log() << \
                     clue_LOG_MODULE_NAME << expr; \
+            } \
         } \
      } while( clue::is_true(false) )
 #endif 
