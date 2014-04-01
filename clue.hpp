@@ -550,7 +550,7 @@ private:
     std::ostringstream stream;
 };
 
-strlog & the_log()
+inline strlog & the_log()
 {
     static strlog log;
     return log;
