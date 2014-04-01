@@ -1,11 +1,10 @@
 // example3.cpp
 
-#include <iostream>
-
 #define clue_LOG_EXPRESSION( severity, expr ) \
     std::cout << clue::to_severity_text(severity) << ": " << expr
 
 #include "clue.hpp"
+#include <iostream>
 
 int main()
 {
