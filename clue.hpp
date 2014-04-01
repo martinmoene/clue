@@ -289,11 +289,16 @@
 
 #if defined( clue_LOG_TO_STRING ) && !defined( clue_LOG_EXPRESSION )
 # define clue_LOG_EXPRESSION( sev, expr ) \
+    clue_LOG_STRING_EXPRESSION( the_log(), sev, expr )
+#endif 
+
+#if defined( clue_LOG_TO_STRING ) && !defined( clue_LOG_STRING_EXPRESSION )
+# define clue_LOG_STRING_EXPRESSION( log, sev, expr ) \
     do { \
         if ( clue_is_active_build( sev ) ) { \
             if ( clue_is_active( sev ) ) { \
-                the_log().severity( sev ); \
-                the_log() << \
+                log.severity( sev ); \
+                log << \
                     clue_LOG_MODULE_NAME << expr; \
             } \
         } \
