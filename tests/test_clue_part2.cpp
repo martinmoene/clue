@@ -16,22 +16,22 @@
 using namespace lest;
 using namespace clue;
 
-test_specification specification_part2;
+extern test_specification specification;
 
-#define TEST( name ) lest_TEST( specification_part2, name )
+#define TEST( name ) lest_TEST( specification, name )
 
 namespace {
 
 strlog my_log;
 
-TEST( "Macro LOG_ALERT() correctly records severity." )
+TEST( "Macro LOG_ALERT() correctly records severity with user-provided string logger." )
 {
     my_log.clear();
     LOG_ALERT( "" );
     EXPECT( my_log.severity() == clue_LOG_SEV_ALERT );
 }
 
-TEST( "Macro LOG_TO_STRING() correctly records text." )
+TEST( "Macro LOG_TO_STRING() correctly records text with user-provided string logger." )
 {
     std::string text = "hello world";
     
