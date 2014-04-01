@@ -14,7 +14,8 @@
 using namespace lest;
 using namespace clue;
 
-test_specification specification;
+static test_specification specification;
+extern test_specification specification_part2;
 
 #define TEST( name ) lest_TEST( specification, name )
 
@@ -117,11 +118,13 @@ TEST( "Macro LOG_TO_STRING() correctly records text." )
 
 int main()
 {
-    return lest::run( specification );
+    return 
+        lest::run( specification ) + 
+        lest::run( specification_part2 );
 }
 
-// cl -nologo -W3 -EHsc -I.. test_clue.cpp && test_clue
-// cl -nologo -Wall -EHsc -I.. test_clue.cpp && test_clue
-// g++ -Wall -Wextra -Weffc++ -std=c++11 -I.. -o test_clue.exe test_clue.cpp && test_clue
-// g++ -Wall -Wextra -Weffc++ -std=c++03 -I.. -o test_clue.exe test_clue.cpp && test_clue
+// cl -nologo -W3 -EHsc -I.. test_clue.cpp test_clue_part2.cpp && test_clue
+// cl -nologo -Wall -EHsc -I.. test_clue.cpp test_clue_part2.cpp && test_clue
+// g++ -Wall -Wextra -Weffc++ -std=c++11 -I.. -o test_clue.exe test_clue.cpp test_clue_part2.cpp && test_clue
+// g++ -Wall -Wextra -Weffc++ -std=c++03 -I.. -o test_clue.exe test_clue.cpp test_clue_part2.cpp && test_clue
 

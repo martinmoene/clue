@@ -9,8 +9,8 @@ vpath %.hpp ..
 
 all: test_clue
 
-test_clue: test_clue.cpp clue.hpp
-	$(CXX) $(CXXFLAGS) -o test_clue test_clue.cpp
+test_clue: test_clue.cpp test_clue_part2.cpp clue.hpp
+	$(CXX) $(CXXFLAGS) -o test_clue test_clue.cpp test_clue_part2.cpp 
 	./test_clue
 
 clean:
