@@ -5,7 +5,7 @@ A tiny header-only C++ logging framework (_in alpha stage_)
 
 If your logging requirements are modest or you like to begin _light_, then `clue` may be for you.
 
-`clue` is a C++03 header-only library to log messages with a severity and optional module identifier. Provided logging destinations are the console, the Windows debugger, the Windows event log, an in-memory log (string) and Unix syslog. You can also define your own logging destination. `clue` is based on an idea by Mark Nelson, presented in DrDobbs [1].
+`clue` is a C++03 header-only library to log messages with a severity and optional module identifier. Provided logging destinations are the console, the Windows debugger, the Windows event log, an in-memory log (string) and Unix syslog. You can also define your own logging destination. `clue` is based on an idea by Mark Nelson, presented in DrDobbs [1] and on ideas found in the CATCH test framework by Phil Nash [2].
 
 **Contents**  
 - [Example usage](#example-usage)
@@ -36,7 +36,7 @@ int main()
 }
 
 ```
-The terminology in above messages is taken from the article by Matthew Wilson [Choosing severity levels](http://blog.pantheios.org/2010/10/choosing-severity-levels.html) on the blog of the Pantheios logging framework [2]. A description of these terms can be found in [3].
+The terminology in above messages is taken from the article by Matthew Wilson [Choosing severity levels](http://blog.pantheios.org/2010/10/choosing-severity-levels.html) on the blog of the Pantheios logging framework [3]. A description of these terms can be found in [4].
 
 
 Compile and run
@@ -138,7 +138,7 @@ Note: it's not safe to use `the_log()` from different threads.
 
 -D<b>LOG_TO_SYSLOG</b>    
 NTS:To be verified (Unix/Windows). 
-See also syslog(3) [4].
+See also syslog(3) [5].
 
 If none of these is defined and you didn't define your own back-end (see below), `clue` will select `console` for non-GUI builds, `debugger` for Windows GUI build (`_WINDOWS` is defined), and `syslog` on Unix (TBD).
 
@@ -189,7 +189,7 @@ std::string **text_with_or(** std::string const & *prefix*, std::string const & 
 Return *text* enclosed in *prefix* and *postfix* if *text* is non-empty, otherwise return *or_text*.
 
 std::string **now_text()**;  
-Return date and time as "*yyyy-mm-dd*&zwj;T&zwj;*hh:mm:ss*" [5], or empty string if `clue_NO_TIMESTAMP` is defined. 
+Return date and time as "*yyyy-mm-dd*&zwj;T&zwj;*hh:mm:ss*" [6], or empty string if `clue_NO_TIMESTAMP` is defined. 
 
 std::string **to_module_text(** std::string const & *module* **)**;  
 Return ": _module_" or empty string if module itself is empty.
@@ -238,12 +238,14 @@ Notes and References
 
 [1] Mark Nelson [Blundering into the One Definition Rule](http://www.drdobbs.com/cpp/blundering-into-the-one-definition-rule/240166489). DrDobbs. 11 March 2014.
 
-[2] Matthew Wilson. Pantheios Tips 'n' Tricks. [Choosing severity levels](http://blog.pantheios.org/2010/10/choosing-severity-levels.html). 30 October 2010.
+[2] Phil Nash. [CATCH, an automated test framework for C, C++ and Objective-C](http://builds.catch-lib.net/).
 
-[3] Matthew Wilson. [Quality Matters: The Worst Form of 'Error' Handling Except For All The Others](http://accu.org/index.php/journals/1681), section *A new vocabulary*. Overload, 18(98):28-32, August 2010.
+[3] Matthew Wilson. Pantheios Tips 'n' Tricks. [Choosing severity levels](http://blog.pantheios.org/2010/10/choosing-severity-levels.html). 30 October 2010.
 
-[4] [syslog(3)](http://man7.org/linux/man-pages/man3/syslog.3.html)
+[4] Matthew Wilson. [Quality Matters: The Worst Form of 'Error' Handling Except For All The Others](http://accu.org/index.php/journals/1681), section *A new vocabulary*. Overload, 18(98):28-32, August 2010.
 
-[5] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
+[5] [syslog(3)](http://man7.org/linux/man-pages/man3/syslog.3.html)
+
+[6] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
 
 [![Build Status](https://travis-ci.org/martinmoene/clue.png?branch=master)](https://travis-ci.org/martinmoene/clue)
