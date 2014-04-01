@@ -134,7 +134,8 @@ Log to memory. This makes function `strlog & the_log()` available in namespace c
 - int **severity()** - the latest logged severity,
 - std::string **text()** - the logged text since the latest clear().
 
-Note: it's not safe to use `the_log()` from different threads.
+Note: it's not safe to use `the_log()` from different threads.  
+See also: [Define your own string logging object](#own_string_log_object).
 
 -D<b>LOG_TO_SYSLOG</b>    
 NTS:To be verified (Unix/Windows). 
@@ -160,6 +161,33 @@ Compile and run:
 
 	prompt> g++ -Wall -o example3.exe example3.cpp && example3
 	Notice: Hello world
+
+<a name="own_string_log_object"></a>
+### Define your own string logging object
+**clue_LOG_STRING_EXPRESSION(** *log*, *severity*, *expr* **)**  
+`clue` allows to specify your own string logging object. You do this by defining `clue_LOG_EXPRESSION`  in terms of `clue_LOG_STRING_EXPRESSION` before inclusion of `clue.hpp`. For example:
+
+	#include <iostream>
+	
+	#define clue_LOG_TO_STRING
+	#define clue_LOG_EXPRESSION( severity, expr ) \
+	    clue_LOG_STRING_EXPRESSION( my_log, severity, expr )
+	
+	#include "clue.hpp"
+	
+	int main()
+	{
+	    clue::strlog my_log;
+	    
+	    clue_LOG_NOTICE( "Hello" << " world" );
+	    
+	    std::cout << "my_log.text(): " << my_log.text() << "\n";
+	}
+
+Compile and run:
+
+	prompt> g++ -Wall -Wextra -Weffc++ -I.. -o example3a.exe example3a.cpp && example3a
+	my_log.text(): Hello world
 
 ### Other Macros
 -D<b>clue_NO_TIMESTAMP</b>  
