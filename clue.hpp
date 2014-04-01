@@ -268,10 +268,11 @@
 # define clue_LOG_EXPRESSION( severity, expr ) \
     do { \
         if ( clue_is_active_build( severity ) ) { \
-            if ( clue_is_active( severity ) ) \
+            if ( clue_is_active( severity ) ) { \
                 clue::windbg() << \
                     std::setw( clue_LOG_PREFIX_WIDTH ) << clue::to_severity_text( severity ) << \
                     clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr; \
+            } \
         } \
      } while( clue::is_true(false) )
 #endif 
@@ -280,9 +281,10 @@
 # define clue_LOG_EXPRESSION( severity, expr ) \
     do { \
         if ( clue_is_active_build( severity ) ) { \
-            if ( clue_is_active( severity ) ) \
+            if ( clue_is_active( severity ) ) { \
                 clue::evtlog( severity, clue_LOG_MODULE_NAME ) << \
                     clue::text_with_or( "", clue_LOG_MODULE_NAME, ": ", "" ) << expr; \
+            } \
         } \
      } while( clue::is_true(false) )
 #endif
@@ -309,9 +311,10 @@
 # define clue_LOG_EXPRESSION( severity, expr ) \
     do { \
         if ( clue_is_active_build( severity ) ) { \
-            if ( clue_is_active( severity ) ) \
+            if ( clue_is_active( severity ) ) { \
                 clue::syslog( severity ) << \
                     clue_LOG_MODULE_NAME << ": " << expr; \
+            } \
         } \
      } while( clue::is_true(false) )
 #endif 
