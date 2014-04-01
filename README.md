@@ -167,14 +167,13 @@ Compile and run:
 **clue_LOG_STRING_EXPRESSION(** *log*, *severity*, *expr* **)**  
 `clue` allows to specify your own string logging object. You do this by defining `clue_LOG_EXPRESSION`  in terms of `clue_LOG_STRING_EXPRESSION` before inclusion of `clue.hpp`. For example:
 
-	#include <iostream>
-	
 	#define clue_LOG_TO_STRING
 	#define clue_LOG_EXPRESSION( severity, expr ) \
 	    clue_LOG_STRING_EXPRESSION( my_log, severity, expr )
 	
 	#include "clue.hpp"
-	
+	#include <iostream>
+		
 	int main()
 	{
 	    clue::strlog my_log;

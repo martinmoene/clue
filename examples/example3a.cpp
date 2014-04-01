@@ -1,12 +1,11 @@
 // example3a.cpp
 
-#include <iostream>
-
 #define clue_LOG_TO_STRING
 #define clue_LOG_EXPRESSION( severity, expr ) \
     clue_LOG_STRING_EXPRESSION( my_log, severity, expr )
 
 #include "clue.hpp"
+#include <iostream>
 
 int main()
 {
