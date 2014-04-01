@@ -95,7 +95,7 @@ See also section _Logging level_ below.
 Note: work in progress. Define the logging statements that are active via `LOG_LEVEL` before inclusion of `clue.hpp`. The idea is to make this runtime configurable.
 
 -D<b>LOG_LEVEL_BUILD</b>=LOG_SEV_DEBUG  
-Define which logging statements will be included in the code via `LOG_LEVEL_BUILD` before inclusion of `clue.hpp`. If you do not define `LOG_LEVEL_BUILD`, all logging statements are included. See also section Other macros, `clue_OMIT_UNUSED_LOG_EXPRESSION`
+Define which logging statements will be included in the code via `LOG_LEVEL_BUILD` before inclusion of `clue.hpp`. If you do not define `LOG_LEVEL_BUILD`, all logging statements are included. See also section Other macros, `clue_OMIT_UNUSED_LOG_EXPRESSIONS`
 
 ### Module name
 -D<b>LOG_MODULE_NAME</b>=*name*  
@@ -165,7 +165,7 @@ Compile and run:
 -D<b>clue_NO_TIMESTAMP</b>  
 Define this to omit the timestamp from the logged messages.
 
--D<b>clue_OMIT_UNUSED_LOG_EXPRESSION</b>  
+-D<b>clue_OMIT_UNUSED_LOG_EXPRESSIONS</b>  
 Define this to omit the logging expressions with a severity lower than `LOG_LEVEL_BUILD`. The idea is that code that is inactivated by the chosen build log level normally is included in the code and compiled, but removed in the optimisation phase. For compilers that are not capable to do this, you may define `LOG_OMIT_UNUSED_LOG_EXPRESSIONS` to simplify these expressions to the equivalent of `do {} while(false)`.
 
 **LOG_LOGGED_SEVERITIES()**  
