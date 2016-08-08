@@ -255,8 +255,9 @@ Variants of clue
 
 Other logging libraries
 -----------------------
-- [Boost.Log](http://www.boost.org/doc/libs/1_55_0/libs/log/doc/html/) - C++ logging library -- simplicity, extensibility, performance.
+- [spdlog](https://github.com/gabime/spdlog) - Super fast C++ logging library.
 - [mlog](https://github.com/zschoche/mlog) - Comfortable lightweight C++ logging library -- cross-platform, C++11.
+- [Boost.Log](http://www.boost.org/doc/libs/1_55_0/libs/log/doc/html/) - C++ logging library -- simplicity, extensibility, performance.
 - [Pantheios](http://www.pantheios.org/) - Pantheios is a C/C++ Diagnostic Logging API library, offering type-safety, efficiency, genericity and extensibility.
 
 
