@@ -71,6 +71,11 @@
 
 // now we can determine if we must guess a destination:
 
+#ifndef clue_OMIT_UNUSED_LOG_EXPRESSION
+# define clue_OMIT_UNUSED_LOG_EXPRESSION 0
+#endif
+
+
 #if !defined( clue_LOG_TO_CONSOLE  ) && \
     !defined( clue_LOG_TO_DEBUGGER ) && \
     !defined( clue_LOG_TO_EVENTLOG ) && \
@@ -200,7 +205,7 @@
     do {} while( clue::is_true(false) )
 
 #define clue_IS_ACTIVE( severity ) \
-    ( clue_IS_ACTIVE_BUILD( severity )  ||  !defined( clue_OMIT_UNUSED_LOG_EXPRESSION ) )
+    ( clue_IS_ACTIVE_BUILD( severity )  ||  !clue_OMIT_UNUSED_LOG_EXPRESSION )
 
 #if clue_IS_ACTIVE( clue_LOG_SEV_EMERGENCY )
 # define clue_LOG_EMERGENCY( expr ) clue_LOG_EXPRESSION( clue_LOG_SEV_EMERGENCY, expr )
@@ -525,7 +530,7 @@ public:
         severity_ = clue_LOG_SEV_NONE ;
         stream.str( std::string() );
     }
-    
+
     void severity( int const sev ) 
     {
         severity_ = sev;
