@@ -100,7 +100,10 @@ There is some kind of "roadmap". But this lib is so small and it seems fully fun
 
 To adjust **cclue** for your needs please fork and change away. Please respect the licenses.
 
-# Original Readme
+Enjoy.
+
+---
+Original Readme
 
 <h4>clue &ndash; Collect and learn from uncovering evidence</h4>
 
@@ -119,7 +122,6 @@ If your logging requirements are modest or you like to begin _light_, then `clue
 	- [Usage](#usage)
 	- [Portability](#portability)
 	- [Roadmap](#roadmap)
-- [Original Readme](#original-readme)
 	- [Example usage](#example-usage)
 	- [Compile and run](#compile-and-run)
 	- [Synopsis](#synopsis)
