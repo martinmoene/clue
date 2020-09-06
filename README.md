@@ -29,7 +29,7 @@ Tested on WIN10 PRO. Compiled using both cl and clang.
 
 ## Roadmap 
 
-There is some kind of "roadmap". But this lib so small and it works quite well. Any addition would be a start on the path to something different. Thus we will stop here.
+There is some kind of "roadmap". But this lib is so small and it seems fully functional and working quite well. Any addition would be a start on the path to something different. Thus we will stop here.
 
 To adjust **cclue** for your needs please fork and change away. Please respect the licenses.
 
