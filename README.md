@@ -77,16 +77,16 @@ int main(int argc, char** argv)
 | file | explanation |
 |------|-------------|
 | `cclue.h` | The new **clue**. Number of macros dramatically lowered. The whole file is much simplified.
-| `examples/example.cpp` | Contains the only relevant test and example. Tried and tested on WIN10 PRO machines. All targets are working. In there you will find all one needs to know to use this tiny library.
+| `examples/example.cpp` | Contains the only relevant test and example. Tried and tested on WIN10 PRO machines. All targets are working. In there you will find all one needs to know to be able to use this tiny library.
 | `syslog-win32/` | Windows version of syslog. See the readme for the original author and license. |
 
 ## Usage
 
-As ever best direction is to use this as a git submodule. 
+As ever, best advice is to use this as a git submodule. 
 
 NOTE: do not include anything but `cclue.h`.
 
-If on windows examples folder contains a Visual Studio 2019 solution.
+Examples folder contains a Visual Studio 2019 solution.
 
 ## Portability
 
@@ -96,7 +96,7 @@ Tested on WIN10 PRO. Compiled using both cl and clang.
 
 ## Roadmap 
 
-There is some kind of "roadmap". But this lib is so small and it seems fully functional and working quite well. Any addition would be a start on the path to something different. Thus we will stop here.
+There is indeed some kind of "roadmap". But this lib is so small and it seems fully functional and working quite well. Any addition would be a start on the path to something different. Thus we will stop here.
 
 To adjust **cclue** for your needs please fork and change away. Please respect the licenses.
 
