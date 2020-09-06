@@ -1,4 +1,0 @@
-language: cpp
-compiler:
-  - clang
-script: cd tests && make test_clue
