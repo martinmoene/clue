@@ -65,7 +65,7 @@ using cpp_string = std::string;
 #endif
 
 #ifdef CLUE_LOG_TO_DEBUGGER_WINDOWS
-#ifdef _WIN32
+#ifndef _WIN32
 # error log to debugger works only under Windows 
 #endif
 #endif
@@ -80,7 +80,7 @@ using cpp_string = std::string;
 #endif
 
 #ifdef CLUE_LOG_TO_EVENTLOG
-#ifdef _WIN32
+#ifndef _WIN32
 # error log to debugger works only under Windows 
 #endif
 #endif
@@ -197,20 +197,26 @@ namespace clue {
 
 namespace clue
 {
+	// nlike std::cerr/std::wcerr, these streams are not automatically flushed
+	// and cout is not automatically tie()'d with these streams.
 	class win_con_dbg
 	{
 		SEVERITY level_{};
 	public:
 		win_con_dbg(SEVERITY level)	noexcept : level_(level)  {
 			// roadmap: colouring by severity 
-			std::cout << "\n" << now_text() << CLUE_DELIMITER ;
-			std::cout << (to_severity_text(level_).c_str()) << CLUE_DELIMITER ;
+			std::clog << "\n" << now_text() << CLUE_DELIMITER ;
+			std::clog << (to_severity_text(level_).c_str()) << CLUE_DELIMITER ;
+		}
+
+		~win_con_dbg() noexcept {
+			std::clog.flush();
 		}
 
 		template<typename T>
 		win_con_dbg & operator<<(T const& that) noexcept
 		{
-			std::cout << " " << that ;
+			std::clog << " " << that ;
 			return *this;
 		}
 	};

@@ -15,7 +15,7 @@
 // #define CLUE_LOG_TO_STRING
 
 // note: in here is a win syslog also used but just for windows builds
-#define CLUE_LOG_TO_SYSLOG
+// #define CLUE_LOG_TO_SYSLOG
 
 // optional
 // otherwise it is empty string
