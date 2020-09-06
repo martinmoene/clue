@@ -29,14 +29,13 @@ Useful when there is no console and you have your own logging option.
 ```
 > You can not select more than one target at once !
 
-Full example targeting the `syslog`.
+Full example. Targeting the `syslog`.
 ```cpp
-// note: in here is a win syslog also used
-// but just for windows builds
+// note: win syslog implementation is included
 #define CLUE_LOG_TO_SYSLOG
 
 // optional
-// otherwise it is empty string
+// default is empty string
 // #define CLUE_LOG_MODULE_NAME __FILE__
 
 #include <cclue.h>
