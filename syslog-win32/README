@@ -1,0 +1,22 @@
+Syslog client for Windows
+-------------------------
+
+This is bare-bones client code for using syslog on Windows.
+
+The syslog.h header file contains Windows specific information. In
+particular, users of this code need to call init_syslog() prior to
+calling any of the syslog functions. This limitation may be fixed in
+the future.
+
+TODO:
+
+- Remove requirement for init_syslog().
+
+- Make threading more efficient. As it is, all syslog calls are
+  serialized. Each thread should be able to invoke syslog without
+  blocking on each other.
+
+- Add a makefile and build a library and perhaps an SxS assembly.
+
+-----
+Asanka Herath <asanka@secure-endpoints.com>
