@@ -9,9 +9,29 @@
 
 Choice of targets. 
 
-Default if none is selected.Note: redirect `std::cerr` to file if required.
+Default if none is selected.Note: redirect `std::clog` to file if required.
 ```cpp
 #define CLUE_LOG_TO_CONSOLE
+```
+Here is how you can [redirect std::clog to a file](https://stackoverflow.com/a/34619037).
+```cpp
+#include <iostream>
+#include <fstream>
+// default target is console
+#include  <cclue.h>
+int main()
+{
+   std::ofstream out("cclue_log.log");
+   // Original rdbuf of clog. Do reset it back before exiting.
+   auto old_rdbuf = std::clog.rdbuf();
+   // Set the rdbuf of clog.
+   std::clog.rdbuf(out.rdbuf());
+   // use cclue
+   CLUE_LOG_INFO << "CCLUE, CCLUE, CCLUE.\n";
+   // Reset the rdbuf of clog.
+   std::clog.rdbuf(old_rdbuf);
+	   return 0;
+}
 ```
 Windows Debugger Target. Note: this will not compile on LINUX or MAC. 
 ```cpp
