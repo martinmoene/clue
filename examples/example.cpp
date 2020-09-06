@@ -7,9 +7,9 @@
 // #define CLUE_LOG_TO_CONSOLE
 
 // note: notice how visual studio is colouring the output
-// #define CLUE_LOG_TO_DEBUGGER
-
-// roadmpap: event and category id to be used ?
+#define CLUE_LOG_TO_DEBUGGER
+ 
+// roadmap: event and category id to be used ? 
 // #define CLUE_LOG_TO_EVENTLOG 
 
 // #define CLUE_LOG_TO_STRING

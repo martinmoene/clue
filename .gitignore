@@ -7,6 +7,10 @@ Debug
 *.filters
 *.user
 *.suo
+*.exe
+*.pdb
+*.ilk
+*.obj
 
 # Compiled Object files
 *.slo
