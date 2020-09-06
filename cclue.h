@@ -438,11 +438,15 @@ namespace clue {
 
 #ifdef CLUE_LOG_TO_SYSLOG
 
+#ifdef _WIN32
 # include "syslog-win32/syslog.h"
 # include "syslog-win32/syslogc.c"
 #include <winsock2.h>
 // #include <ws2tcpip.h>
 #pragma comment(lib, "Ws2_32.lib")
+#else  // ! _WIN32
+#include <syslog.h>
+#endif // ! _WIN32
 
 
 namespace clue {

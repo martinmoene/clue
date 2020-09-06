@@ -1,5 +1,43 @@
-clue &ndash; Collect and learn from uncovering evidence
-=========================================================
+
+# CCLUE == CLUE 2020
+
+> Changes (c) 2020 by dbj@dbj.org
+>
+> LICENSE_DBJ --  https://dbj.org/license_dbj/
+
+## This is clue but cleaned and simplified 
+
+| file | explanation |
+|------|-------------|
+| `cclue.h` | The new **clue**. Number of macros dramatically lowered. The whole file is much simplified.
+| `examples/example.cpp` | Contains the only relevant test and example. Tried and tested on WIN10 PRO machines. All targets are working. In there you will find all one needs to know to use this tiny library.
+| `syslog-win32/` | Windows version of syslog. See the readme for the original author and license. |
+
+## Usage
+
+As ever best direction is to use this as a git submodule. 
+
+NOTE: do not include anything but `cclue.h`.
+
+If on windows examples folder contains a Visual Studio 2019 solution.
+
+## Portability
+
+Tested on WIN10 PRO. Compiled using both cl and clang.
+
+> **NOT** tested on Mac or Linux. Please let us know in "issues" of any problems.
+
+## Roadmap 
+
+There is some kind of "roadmap". But this lib so small and it works quite well. Any addition would be a start on the path to something different. Thus we will stop here.
+
+To adjust **cclue** for your needs please fork and change away. Please respect the licenses.
+
+# Original Readme
+
+<h2>clue &ndash; Collect and learn from uncovering evidence</h2>
+
+<font size="1" >
 
 A tiny header-only C++ logging framework (_in alpha stage_)
 
@@ -8,13 +46,33 @@ If your logging requirements are modest or you like to begin _light_, then `clue
 `clue` is a C++03 header-only library to log messages with a severity and optional module identifier. Provided logging destinations are the console, the Windows debugger, the Windows event log, an in-memory log (string) and Unix syslog. You can also define your own logging destination. `clue` is based on an idea by Mark Nelson, presented in DrDobbs [1] and on ideas found in the CATCH test framework by Phil Nash [2].
 
 **Contents**  
-- [Example usage](#example-usage)
-- [Compile and run](#compile-and-run)
-- [Synopsis](#synopsis)
-- [Dependencies](#dependencies)
-- [Reported to work with](#reported-to-work-with)
-- [Other logging libraries](#other-logging-libraries)
-- [Notes and References](#notes-and-references)
+- [CCLUE == CLUE 2020](#cclue--clue-2020)
+	- [This is clue but cleaned and simplified](#this-is-clue-but-cleaned-and-simplified)
+	- [Usage](#usage)
+	- [Portability](#portability)
+	- [Roadmap](#roadmap)
+- [Original Readme](#original-readme)
+	- [Example usage](#example-usage)
+	- [Compile and run](#compile-and-run)
+	- [Synopsis](#synopsis)
+		- [Unique macro names](#unique-macro-names)
+		- [Logging macros](#logging-macros)
+		- [Log severities](#log-severities)
+		- [Loggging level](#loggging-level)
+		- [Module name](#module-name)
+		- [Logging destination control](#logging-destination-control)
+		- [Define your own back-end or logging destination](#define-your-own-back-end-or-logging-destination)
+		- [Define your own string logging object](#define-your-own-string-logging-object)
+		- [Other Macros](#other-macros)
+		- [Namespace](#namespace)
+		- [Utility functions](#utility-functions)
+			- [General](#general)
+			- [When LOG_EVENTLOG is defined](#when-log_eventlog-is-defined)
+			- [When LOG_SYSLOG is defined](#when-log_syslog-is-defined)
+	- [Dependencies](#dependencies)
+	- [Reported to work with](#reported-to-work-with)
+	- [Other logging libraries](#other-logging-libraries)
+	- [Notes and References](#notes-and-references)
 
 <!--- [Variants of lest](#variants-of-lest) -->
 
@@ -248,11 +306,6 @@ Reported to work with
 - Visual C++ 6 (Visual Studio 6), VC10 (VS2010), VC11 (VS2012)
 
 
-<!--
-Variants of clue
-----------------
--->
-
 Other logging libraries
 -----------------------
 - [spdlog](https://github.com/gabime/spdlog) - Super fast C++ logging library.
@@ -277,3 +330,5 @@ Notes and References
 [6] [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) format, but without timezone.
 
 [![Build Status](https://travis-ci.org/martinmoene/clue.png?branch=master)](https://travis-ci.org/martinmoene/clue)
+
+</font>
