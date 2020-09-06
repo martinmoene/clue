@@ -5,7 +5,74 @@
 >
 > LICENSE_DBJ --  https://dbj.org/license_dbj/
 
-## This is clue but cleaned and simplified 
+## Example
+
+Choice of targets. 
+
+Default if none is selected.Note: redirect `std::cerr` to file if required.
+```cpp
+#define CLUE_LOG_TO_CONSOLE
+```
+Windows Debugger Target. Note: this will not compile on LINUX or MAC. 
+```cpp
+#define CLUE_LOG_TO_DEBUGGER
+```
+Notice how visual studio is colouring the output.
+
+Windows event log.
+```cpp
+#define CLUE_LOG_TO_EVENTLOG 
+```
+Useful when there is no console and you have your own logging option.
+```cpp
+#define CLUE_LOG_TO_STRING
+```
+> You can not select more than one target at once !
+
+Full example targeting the `syslog`.
+```cpp
+// note: in here is a win syslog also used
+// but just for windows builds
+#define CLUE_LOG_TO_SYSLOG
+
+// optional
+// otherwise it is empty string
+// #define CLUE_LOG_MODULE_NAME __FILE__
+
+#include <cclue.h>
+
+int main(int argc, char** argv)
+{
+	CLUE_LOG_EMERGENCY << "design by contract violation: " << "irrecoverable, terminating...";
+
+	CLUE_LOG_ALERT << "practically-unrecoverable condition: " << "need more memory; trying hard, likely failing...";
+	
+	CLUE_LOG_CRITICAL << "normative behaviour cannot be achieved: " << "severe error";
+	
+	CLUE_LOG_ERROR << "normative behaviour cannot be achieved! ";
+	
+	CLUE_LOG_WARNING << "you should be aware of: " << "e.g. disk 90% full, please free some";
+	
+	CLUE_LOG_NOTICE << "operating normal: " << "database connection achieved";
+
+#if defined(__clang__) || defined(__GNUC__)
+	CLUE_LOG_INFO << __VERSION__;
+#endif
+
+#ifdef	_MSC_FULL_VER
+	CLUE_LOG_INFO << "_MSC_FULL_VER : " <<  _MSC_FULL_VER;
+#endif // _MSC_FULL_VER
+
+	CLUE_LOG_DEBUG << "tracking detailed information: " << "speed: " << 3.14 << " m/s";
+
+	printf("\n%s\n", CLUE_STRING_LOG_TEXT); // empty string if no string logging
+	return EXIT_SUCCESS;
+}
+
+/* EOF */
+```
+
+## This is clue. But cleaned and simplified 
 
 | file | explanation |
 |------|-------------|
@@ -35,7 +102,7 @@ To adjust **cclue** for your needs please fork and change away. Please respect t
 
 # Original Readme
 
-<h2>clue &ndash; Collect and learn from uncovering evidence</h2>
+<h4>clue &ndash; Collect and learn from uncovering evidence</h4>
 
 <font size="1" >
 
@@ -47,7 +114,8 @@ If your logging requirements are modest or you like to begin _light_, then `clue
 
 **Contents**  
 - [CCLUE == CLUE 2020](#cclue--clue-2020)
-	- [This is clue but cleaned and simplified](#this-is-clue-but-cleaned-and-simplified)
+	- [Example](#example)
+	- [This is clue. But cleaned and simplified](#this-is-clue-but-cleaned-and-simplified)
 	- [Usage](#usage)
 	- [Portability](#portability)
 	- [Roadmap](#roadmap)

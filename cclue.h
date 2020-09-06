@@ -47,13 +47,13 @@ using cpp_string = std::string;
 #  define CLUE_LOG_TO_CONSOLE
 #endif
 
-//#if defined( CLUE_LOG_TO_CONSOLE  ) + \
-//    defined( CLUE_LOG_TO_DEBUGGER ) + \
-//    defined( CLUE_LOG_TO_EVENTLOG ) + \
-//    defined( CLUE_LOG_TO_STRING   ) + \
-//    defined( CLUE_LOG_TO_SYSLOG   ) > 1
-//# error Please specify one, or none of CLUE_LOG_TO_CONSOLE, CLUE_LOG_TO_DEBUGGER CLUE_LOG_TO_EVENTLOG, CLUE_LOG_TO_STRING and CLUE_LOG_TO_SYSLOG
-//#endif
+#if defined( CLUE_LOG_TO_CONSOLE  ) + \
+    defined( CLUE_LOG_TO_DEBUGGER ) + \
+    defined( CLUE_LOG_TO_EVENTLOG ) + \
+    defined( CLUE_LOG_TO_STRING   ) + \
+    defined( CLUE_LOG_TO_SYSLOG   ) > 1
+# error Please specify *ONLY ONE, OR NONE*,  of CLUE_LOG_TO_CONSOLE, CLUE_LOG_TO_DEBUGGER CLUE_LOG_TO_EVENTLOG, CLUE_LOG_TO_STRING and CLUE_LOG_TO_SYSLOG
+#endif
 
 #ifndef CLUE_LOG_MODULE_NAME
 #define CLUE_LOG_MODULE_NAME ""
@@ -65,6 +65,12 @@ using cpp_string = std::string;
 #endif
 
 #ifdef CLUE_LOG_TO_DEBUGGER_WINDOWS
+#ifdef _WIN32
+# error log to debugger works only under Windows 
+#endif
+#endif
+
+#ifdef CLUE_LOG_TO_DEBUGGER_WINDOWS
 #define STRICT 1
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -73,8 +79,10 @@ using cpp_string = std::string;
 # include <windows.h>
 #endif
 
-#ifdef CLUE_LOG_TO_DEBUGGER_UNIX
-# error log to debugger under Unix not implemented
+#ifdef CLUE_LOG_TO_EVENTLOG
+#ifdef _WIN32
+# error log to debugger works only under Windows 
+#endif
 #endif
 
 #ifdef CLUE_LOG_TO_EVENTLOG
@@ -85,6 +93,7 @@ using cpp_string = std::string;
 #define NOKERNEL
 # include <windows.h>
 #endif
+
 
 #define CLUE_TITLE "[CLUE]"
 #define CLUE_VERSION CLUE_TITLE " [" __TIMESTAMP__ "] "
