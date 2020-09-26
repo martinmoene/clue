@@ -32,9 +32,12 @@
 
 #include <stdio.h>
 #include <string.h>
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include "syslog.h"
+
+#pragma comment(lib, "Ws2_32.lib")
 
 #define SYSLOG_DGRAM_SIZE 1024
 
@@ -194,7 +197,7 @@ void openlog( char* ident, int option, int facility )
     /* FIXME: handle other options */
 
     n = sizeof(local_hostname);
-    if( !GetComputerName( local_hostname, &n ) )
+    if( !GetComputerNameA( local_hostname, &n ) )
         goto done;
 
     syslog_socket = INVALID_SOCKET;
@@ -323,7 +326,7 @@ void vsyslog( int pri, const char* fmt, va_list ap )
     if( p )
         *p = 0;
 
-    sendto( syslog_socket, datagramm, strlen(datagramm), 0, (SOCKADDR*) &syslog_hostaddr, sizeof(SOCKADDR_IN) );
+    sendto( syslog_socket, datagramm, (int)strlen(datagramm), 0, (SOCKADDR*) &syslog_hostaddr, (int)sizeof(SOCKADDR_IN) );
 
  done:
     LeaveCriticalSection(&cs_syslog);

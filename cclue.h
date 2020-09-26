@@ -1,6 +1,5 @@
-//
-// 2020 version of clue (c) 2020 by dbj@dbj.org -- https://dbj.org/license_dbj/
-//
+#ifndef CLUE_CLUE_H_INCLUDED
+#define CLUE_CLUE_H_INCLUDED
 
 //
 // Copyright 2014 by Martin Moene
@@ -11,8 +10,36 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef CLUE_CLUE_H_INCLUDED
-#define CLUE_CLUE_H_INCLUDED
+//
+// 2020 version of clue (c) 2020 by dbj@dbj.org -- https://dbj.org/license_dbj/
+//
+// this is MSVC STD LIB code
+// it actually does not depend on C++20 __cplusplus
+
+#if !defined(DBJ_HAS_CXX17) && !defined(DBJ_HAS_CXX20)
+
+#if defined(_MSVC_LANG)
+#define DBJ_STL_LANG _MSVC_LANG
+#else
+#define DBJ_STL_LANG __cplusplus
+#endif
+
+#if DBJ_STL_LANG > 201703L
+#define DBJ_HAS_CXX17 1
+#define DBJ_HAS_CXX20 1
+#elif DBJ_STL_LANG > 201402L
+#define DBJ_HAS_CXX17 1
+#define DBJ_HAS_CXX20 0
+#else // DBJ_STL_LANG <= 201402L
+#define DBJ_HAS_CXX17 0
+#define DBJ_HAS_CXX20 0
+#endif 
+#undef DBJ_STL_LANG
+#endif // !defined(DBJ_HAS_CXX17) && !defined(DBJ_HAS_CXX20)
+
+#if !DBJ_HAS_CXX17
+#error This header requires C++17 or better
+#endif
 
 #ifdef __clang__
 #pragma clang system_header
@@ -455,10 +482,6 @@ namespace clue {
 
 #ifdef _WIN32
 # include "syslog-win32/syslog.h"
-# include "syslog-win32/syslogc.c"
-#include <winsock2.h>
-// #include <ws2tcpip.h>
-#pragma comment(lib, "Ws2_32.lib")
 #else  // ! _WIN32
 #include <syslog.h>
 #endif // ! _WIN32
@@ -483,14 +506,14 @@ namespace clue {
 		}
 	}
 
-	class syslog
+	class syslog_type
 	{
 	public:
-		explicit syslog(SEVERITY severity) noexcept
+		explicit syslog_type(SEVERITY severity) noexcept
 			: severity(severity)
 			, stream() {}
 
-		~syslog()
+		~syslog_type()
 		{
 			// emit: program-name[pid]:
 			::openlog(NULL, LOG_PID, LOG_USER);
@@ -499,7 +522,7 @@ namespace clue {
 		}
 
 		template<typename T>
-		syslog& operator<<(T const& that) noexcept
+		syslog_type& operator<<(T const& that) noexcept
 		{
 			stream << that;
 			return *this;
@@ -508,7 +531,7 @@ namespace clue {
 	private:
 		SEVERITY severity;
 		std::ostringstream stream;
-	};
+	}; // syslog_type
 
 	inline auto target = [](SEVERITY severity /*, auto module_name*/) noexcept {
 
@@ -520,7 +543,7 @@ namespace clue {
 			init_syslog_done = true;
 		}
 
-		return syslog(severity);
+		return syslog_type(severity);
 	};
 
 } // namespace clue

@@ -7,7 +7,7 @@
 // #define CLUE_LOG_TO_CONSOLE
 
 // note: notice how visual studio is colouring the output
-#define CLUE_LOG_TO_DEBUGGER
+// #define CLUE_LOG_TO_DEBUGGER
  
 // roadmap: event and category id to be used ? 
 // #define CLUE_LOG_TO_EVENTLOG 
@@ -15,7 +15,7 @@
 // #define CLUE_LOG_TO_STRING
 
 // note: in here is a win syslog also used but just for windows builds
-// #define CLUE_LOG_TO_SYSLOG
+#define CLUE_LOG_TO_SYSLOG
 
 // optional
 // otherwise it is empty string

@@ -103,13 +103,13 @@ int main(int argc, char** argv)
 
 As ever, best advice is to use this as a git submodule. 
 
-NOTE: do not include anything but `cclue.h`.
+NOTE: Do include syslogc.c in your project too. 
 
 Examples folder contains a Visual Studio 2019 solution.
 
 ## Portability
 
-Tested on WIN10 PRO. Compiled using both cl and clang.
+This has to be compiles as C++17 or better. Tested on WIN10 PRO. Compiled using both cl and clang.
 
 > **NOT** tested on Mac or Linux. Please let us know in "issues" of any problems.
 
