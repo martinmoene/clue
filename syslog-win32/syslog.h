@@ -34,6 +34,10 @@
 
 #include <stdarg.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * priorities/facilities are encoded into a single 32-bit quantity, where the
  * bottom 3 bits are the priority (0-7) and the top 28 bits are the facility
@@ -163,9 +167,7 @@ CODE facilitynames[] =
 
 #define SYSLOG_PORT     514
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 
 /* Close desriptor used to write to system logger.  */
 extern void closelog (void);
