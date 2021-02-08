@@ -1,11 +1,11 @@
 clue &ndash; Collect and learn from uncovering evidence
 =========================================================
 
-A tiny header-only C++ logging framework (_in alpha stage_)
+A tiny header-only C++ logging framework.
 
 If your logging requirements are modest or you like to begin _light_, then `clue` may be for you.
 
-`clue` is a C++03 header-only library to log messages with a severity and optional module identifier. Provided logging destinations are the console, the Windows debugger, the Windows event log, an in-memory log (string) and Unix syslog. You can also define your own logging destination. `clue` is based on an idea by Mark Nelson, presented in DrDobbs [1] and on ideas found in the CATCH test framework by Phil Nash [2].
+`clue` is a C++03 header-only library to log messages with a severity and optional module identifier. Provided logging destinations are the console, a text file, the Windows debugger, the Windows event log, an in-memory log (string) and Unix syslog. You can also define your own logging destination. `clue` is based on an idea by Mark Nelson, presented in DrDobbs [1] and on ideas found in the CATCH test framework by Phil Nash [2].
 
 **Contents**  
 - [Example usage](#example-usage)
