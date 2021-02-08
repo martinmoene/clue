@@ -122,6 +122,9 @@ To select a specific logging destination, define one of the following before inc
 -D<b>LOG_TO_CONSOLE</b>  
 Log to `std::clog`.
 
+-D<b>LOG_TO_FILE=\\"path/to/logfile.txt\\"</b>  
+Log to a text files pecified by the given path.
+
 -D<b>LOG_TO_DEBUGGER</b>  
 On Windows, log via `OutputDebugString()`. On Unix: TBD.
  
