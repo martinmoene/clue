@@ -1,4 +1,4 @@
-// example2.cpp
+// example2.cpp - Log to console, include module name
 
 #define LOG_MODULE_NAME "Gearbox"
 #include "clue.hpp"

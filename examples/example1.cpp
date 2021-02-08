@@ -1,4 +1,4 @@
-// example1.cpp
+// example1.cpp - report logged severities, issue log messages.
 
 // -DLOG_TO_CONSOLE
 // -DLOG_TO_DEBUGGER

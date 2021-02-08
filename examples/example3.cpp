@@ -1,4 +1,4 @@
-// example3.cpp
+// example3.cpp - Log to console, report level.
 
 #define clue_LOG_EXPRESSION( severity, expr ) \
     std::cout << clue::to_severity_text(severity) << ": " << expr
