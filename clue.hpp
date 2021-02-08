@@ -1,4 +1,4 @@
-// Copyright 2014 by Martin Moene
+// Copyright 2014, 2021 by Martin Moene
 //
 // clue is based on ideas by Mark Nelson, see article at
 // http://www.drdobbs.com/cpp/blundering-into-the-one-definition-rule/240166489
@@ -43,6 +43,10 @@
 #  define clue_LOG_TO_CONSOLE   LOG_TO_CONSOLE
 # endif
 
+# ifdef  LOG_TO_FILE
+#  define clue_LOG_TO_FILE      LOG_TO_FILE
+# endif
+
 # ifdef  LOG_TO_DEBUGGER
 #  define clue_LOG_TO_DEBUGGER  LOG_TO_DEBUGGER
 # endif
@@ -77,6 +81,7 @@
 
 
 #if !defined( clue_LOG_TO_CONSOLE  ) && \
+    !defined( clue_LOG_TO_FILE     ) && \
     !defined( clue_LOG_TO_DEBUGGER ) && \
     !defined( clue_LOG_TO_EVENTLOG ) && \
     !defined( clue_LOG_TO_STRING   ) && \
@@ -91,11 +96,12 @@
 #endif
 
 #if defined( clue_LOG_TO_CONSOLE  ) + \
+    defined( clue_LOG_TO_FILE     ) + \
     defined( clue_LOG_TO_DEBUGGER ) + \
     defined( clue_LOG_TO_EVENTLOG ) + \
     defined( clue_LOG_TO_STRING   ) + \
     defined( clue_LOG_TO_SYSLOG   ) > 1
-# error Please specify one, or none of [clue_]LOG_TO_CONSOLE, [clue_]LOG_TO_DEBUGGER [clue_]LOG_TO_EVENTLOG, [clue_]LOG_TO_STRING and [clue_]LOG_TO_SYSLOG
+# error Please specify one, or none of [clue_]LOG_TO_CONSOLE, [clue_]LOG_TO_DEBUGGER [clue_]LOG_TO_EVENTLOG, [clue_]LOG_TO_STRING, [clue_]LOG_TO_SYSLOG and  [clue_]LOG_TO_FILE
 #endif
 
 // NTS: add UNIX
@@ -134,6 +140,10 @@
 
 #ifdef clue_LOG_TO_CONSOLE
 # include <iostream>
+#endif
+
+#ifdef clue_LOG_TO_FILE
+# include <fstream>
 #endif
 
 #ifdef clue_LOG_TO_DEBUGGER_WINDOWS
@@ -261,6 +271,20 @@
         if ( clue_is_active_build( severity ) ) { \
             if ( clue_is_active( severity ) ) { \
                 std::clog << \
+                    clue::now_text() << std::setw( clue_LOG_PREFIX_WIDTH ) << \
+                    clue::to_severity_text(severity) << \
+                    clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr << "\n"; \
+            } \
+        } \
+    } while( clue::is_true( false ) )
+#endif
+
+#if defined( clue_LOG_TO_FILE ) && !defined( clue_LOG_EXPRESSION )
+# define clue_LOG_EXPRESSION( severity, expr ) \
+    do { \
+        if ( clue_is_active_build( severity ) ) { \
+            if ( clue_is_active( severity ) ) { \
+                clue::filelog() << \
                     clue::now_text() << std::setw( clue_LOG_PREFIX_WIDTH ) << \
                     clue::to_severity_text(severity) << \
                     clue::to_module_text(clue_LOG_MODULE_NAME) << ": " << expr << "\n"; \
@@ -409,6 +433,38 @@ inline std::string now_text()
 } // namespace clue
 
 #endif // clue_NO_TIMESTAMP
+
+#ifdef clue_LOG_TO_FILE
+
+namespace clue {
+
+class filelog
+{
+public:
+    filelog()
+    : stream() {}
+
+    ~filelog()
+    {
+        // emit: program-name[pid]:
+        std::ofstream os( clue_LOG_TO_FILE );
+        os << stream.str() << "\n";
+    }
+
+    template<typename T>
+    filelog & operator<<( T const & that )
+    {
+        stream << that;
+        return *this;
+    }
+
+private:
+    std::ostringstream stream;
+};
+
+} // namespace clue
+
+#endif // clue_LOG_TO_FILE
 
 #ifdef clue_LOG_TO_DEBUGGER_WINDOWS
 
