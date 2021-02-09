@@ -447,8 +447,8 @@ public:
     ~filelog()
     {
         // emit: program-name[pid]:
-        std::ofstream os( clue_LOG_TO_FILE );
-        os << stream.str() << "\n";
+        std::ofstream os( clue_LOG_TO_FILE, std::ios_base::app );
+        os << stream.str();
     }
 
     template<typename T>

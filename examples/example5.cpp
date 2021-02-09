@@ -7,6 +7,7 @@
 int main()
 {
     clue_LOG_NOTICE( "Hello" << " world" );
+    clue_LOG_NOTICE( "End of example 5" );
 }
 
 // cl -nologo -W4 -EHsc -I.. -Dclue_LOG_TO_FILE=\"clue-log.txt\" example5.cpp && example5
