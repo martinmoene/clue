@@ -9,7 +9,7 @@
 #ifndef CLUE_CLUE_H_INCLUDED
 #define CLUE_CLUE_H_INCLUDED
 
-#define clue_MAJOR  0
+#define clue_MAJOR  1
 #define clue_MINOR  0
 #define clue_PATCH  0
 
