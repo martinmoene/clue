@@ -21,6 +21,17 @@ lest::tests & specification()
 
 #define CASE( name ) lest_CASE( specification(), name )
 
+#define clue_PRESENT( x ) \
+    std::cout << #x << ": " << x << "\n"
+
+CASE( "clue version" "[.clue][.version]" )
+{
+    clue_PRESENT( clue_MAJOR   );
+    clue_PRESENT( clue_MINOR   );
+    clue_PRESENT( clue_PATCH   );
+    clue_PRESENT( clue_VERSION );
+}
+
 CASE( "Function is_true() to suppress warning \"expression has no effect\" acts as identity function." )
 {
     EXPECT( false == is_true( false ) );

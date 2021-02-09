@@ -9,6 +9,15 @@
 #ifndef CLUE_CLUE_H_INCLUDED
 #define CLUE_CLUE_H_INCLUDED
 
+#define clue_MAJOR  0
+#define clue_MINOR  0
+#define clue_PATCH  0
+
+#define clue_VERSION  clue_STRINGIFY(clue_MAJOR) "." clue_STRINGIFY(clue_MINOR) "." clue_STRINGIFY(clue_PATCH)
+
+#define clue_STRINGIFY(  x )  clue_STRINGIFY_( x )
+#define clue_STRINGIFY_( x )  #x
+
 #include <iomanip>
 #include <sstream>
 #include <cassert>
