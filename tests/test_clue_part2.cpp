@@ -13,25 +13,24 @@
 #include "clue.hpp"
 #include "lest_cpp03.hpp"
 
-using namespace lest;
 using namespace clue;
 
-extern test_specification specification;
+extern lest::tests & specification();
 
-#define TEST( name ) lest_TEST( specification, name )
+#define CASE( name ) lest_CASE( specification(), name )
 
 namespace {
 
 strlog my_log;
 
-TEST( "Macro LOG_ALERT() correctly records severity with user-provided string logger." )
+CASE( "Macro LOG_ALERT() correctly records severity with user-provided string logger." )
 {
     my_log.clear();
     LOG_ALERT( "" );
     EXPECT( my_log.severity() == clue_LOG_SEV_ALERT );
 }
 
-TEST( "Macro LOG_TO_STRING() correctly records text with user-provided string logger." )
+CASE( "Macro LOG_TO_STRING() correctly records text with user-provided string logger." )
 {
     std::string text = "hello world";
     

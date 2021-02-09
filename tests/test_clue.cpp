@@ -11,45 +11,48 @@
 #include "clue.hpp"
 #include "lest_cpp03.hpp"
 
-using namespace lest;
 using namespace clue;
 
-test_specification specification;
+lest::tests & specification()
+{
+    static lest::tests tests;
+    return tests;
+}
 
-#define TEST( name ) lest_TEST( specification, name )
+#define CASE( name ) lest_CASE( specification(), name )
 
-TEST( "Function is_true() to suppress warning \"expression has no effect\" acts as identity function." )
+CASE( "Function is_true() to suppress warning \"expression has no effect\" acts as identity function." )
 {
     EXPECT( false == is_true( false ) );
     EXPECT(  true == is_true( true  ) );
 }
 
-TEST( "Function text_or() gives text for non-empty text." )
+CASE( "Function text_or() gives text for non-empty text." )
 {
     EXPECT( "text" == text_or( "text", "or_text" ) );
 }
 
-TEST( "Function text_or() gives or_text for empty text." )
+CASE( "Function text_or() gives or_text for empty text." )
 {
     EXPECT( "or_text" == text_or( "", "or_text" ) );
 }
 
-TEST( "Function text_with_or() gives enclosed text for non-empty text." )
+CASE( "Function text_with_or() gives enclosed text for non-empty text." )
 {
     EXPECT( "^text$" == text_with_or( "^", "text", "$", "or_text" ) );
 }
 
-TEST( "Function text_with_or() gives or_text for empty text." )
+CASE( "Function text_with_or() gives or_text for empty text." )
 {
     EXPECT( "or_text" == text_with_or( "^", "", "$", "or_text" ) );
 }
 
-TEST( "Function to_module_text() prepends a colon to text." )
+CASE( "Function to_module_text() prepends a colon to text." )
 {
     EXPECT( ": Module" == to_module_text( "Module" ) );
 }
 
-TEST( "Function to_severity_text() return correct text for severity." )
+CASE( "Function to_severity_text() return correct text for severity." )
 {
     struct Table { 
         int severity; char const * text; 
@@ -75,37 +78,37 @@ TEST( "Function to_severity_text() return correct text for severity." )
     }
 }
 
-TEST( "Function to_severities_text() with clue_LOG_SEV_NONE gives postfix dot only" )
+CASE( "Function to_severities_text() with clue_LOG_SEV_NONE gives postfix dot only" )
 {
     EXPECT( "." == to_severities_text( clue_LOG_SEV_NONE ) );
 }
 
-TEST( "Function to_severities_text() with clue_LOG_SEV_DEBUG gives all severities." )
+CASE( "Function to_severities_text() with clue_LOG_SEV_DEBUG gives all severities." )
 {
     char const * const text = "Emergency, Alert, Critical, Error, Warning, Notice, Info, Debug.";
     EXPECT( text == to_severities_text( clue_LOG_SEV_DEBUG ) );
 }
 
-TEST( "Function to_severities_text() with clue_LOG_SEV_ALERT gives two severities." )
+CASE( "Function to_severities_text() with clue_LOG_SEV_ALERT gives two severities." )
 {
     char const * const text = "Emergency, Alert.";
     EXPECT( text == to_severities_text( clue_LOG_SEV_ALERT ) );
 }
 
-TEST( "Function to_severities_text() with non-default postfix ends correctly." )
+CASE( "Function to_severities_text() with non-default postfix ends correctly." )
 {
     char const * const text = "Emergency, Alert$$";
     EXPECT( text == to_severities_text( clue_LOG_SEV_ALERT, "$$" ) );
 }
 
-TEST( "Macro LOG_ALERT() correctly records severity." )
+CASE( "Macro LOG_ALERT() correctly records severity." )
 {
     the_log().clear();
     LOG_ALERT( "" );
     EXPECT( the_log().severity() == clue_LOG_SEV_ALERT );
 }
 
-TEST( "Macro LOG_TO_STRING() correctly records text." )
+CASE( "Macro LOG_TO_STRING() correctly records text." )
 {
     std::string text = "hello world";
     
@@ -114,14 +117,12 @@ TEST( "Macro LOG_TO_STRING() correctly records text." )
     EXPECT( the_log().text() == text );
 }
 
-
-int main()
+int main( int argc, char * argv[] )
 {
-    return lest::run( specification );
+    return lest::run( specification(), argc, argv );
 }
 
 // cl -nologo -W3 -EHsc -I.. test_clue.cpp test_clue_part2.cpp && test_clue
 // cl -nologo -Wall -EHsc -I.. test_clue.cpp test_clue_part2.cpp && test_clue
 // g++ -Wall -Wextra -Weffc++ -std=c++11 -I.. -o test_clue.exe test_clue.cpp test_clue_part2.cpp && test_clue
 // g++ -Wall -Wextra -Weffc++ -std=c++03 -I.. -o test_clue.exe test_clue.cpp test_clue_part2.cpp && test_clue
-
